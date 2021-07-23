@@ -11,6 +11,7 @@ export default createGlobalStyle`
         --white: #fff;
         --black: #000;
         --green: #78E589;
+        --gk-green: #52BBBB;
     }
 
     * {
