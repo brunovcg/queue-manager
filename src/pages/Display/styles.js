@@ -16,57 +16,103 @@ export const Container = styled.main`
       display: flex;
       align-items: center;
       padding: 15px;
-      font-size: 1.7rem;
+      font-size: 2vw;
     }
 
     .countDown {
-      width: 15%;
+      width: 20%;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 15px;
 
       p {
-        font-size: 1rem;
+        font-size: 1.2vw;
         font-weight: bold;
         color: var(--red);
         text-align: center;
         display: flex;
         justify-content: center;
       }
+
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
       div {
         color: var(--red);
-        font-size: 1.7rem;
+        font-size: 3vw;
         font-weight: bold;
+        animation: blink 0.75s linear infinite;
       }
     }
 
     figure {
-      width: 15%;
-      height: 100%;
+      width: 5vw;
+
       display: flex;
       align-items: center;
+      position: absolute;
+      top: 5px;
+      right: 10px;
 
       img {
-        height: 80%;
-        box-shadow: 0px 4px 5px rgba(0,0,0,0.5);
+        height: 8vh;
+        box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
       }
     }
   }
 
   main {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 90%;
 
-      section{
-          
-          width: 9%;
-          height: 95%;
-          background: var(--grey);
-          box-shadow: 0px 4px 5px rgba(0,0,0,0.5);
-      }
+    section {
+      width: 9%;
+      height: 95%;
+      background: var(--grey);
+      box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
+    }
+  }
+`;
+
+export const MobileContainer = styled.main`
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--light-grey);
+
+  .selectBox{
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    select{
+      width: 80%;
+      height: 70%;
+      font-size: 8vw;
+    }
+  }
+
+  .callBox{
+    background-color: var(--grey);
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow-y: auto;
+
+
   }
 `;

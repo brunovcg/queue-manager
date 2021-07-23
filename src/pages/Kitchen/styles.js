@@ -8,6 +8,18 @@ export const Container = styled.main`
   justify-content: space-around;
   align-items: center;
 
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+
+  .changeWindow{
+    height: 10vh;
+
+    button{
+      color: var(--white);
+    }
+  }
+
   .inputContainer {
     width: 30%;
     height: 90%;
@@ -17,9 +29,14 @@ export const Container = styled.main`
     justify-content: center;
     align-items: center;
 
+    @media (max-width: 500px) {
+      width: 100%;
+      height: 90vh;
+    }
+
     .info {
       button {
-        color: var(--divwhite);
+        color: var(--white);
       }
     }
 
@@ -64,7 +81,8 @@ export const Container = styled.main`
         justify-content: center;
         align-items: center;
 
-        .logout, .call{
+        .logout,
+        .call {
           display: flex;
           justify-content: center;
         }
@@ -95,5 +113,14 @@ export const Container = styled.main`
     justify-content: flex-start;
     flex-wrap: wrap;
     overflow-y: auto;
+
+    @media (max-width: 500px) {
+      width: 100%;
+      height: 90vh;
+    }
+  }
+
+  .hidden{
+    display: none;
   }
 `;

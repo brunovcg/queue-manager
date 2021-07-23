@@ -10,6 +10,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 500px) {
+      width: 100%;
+    }
+
   h3, .buttonBox{
     display: flex;
     justify-content: center;

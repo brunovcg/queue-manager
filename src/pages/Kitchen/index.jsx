@@ -3,8 +3,13 @@ import Button from "../../components/Button";
 import { CallCard } from "../../components/CallCard";
 import { useState } from "react";
 import { FaArrowAltCircleLeft, FaUndoAlt } from "react-icons/fa";
+import { useWindowSize } from "../../providers/windowSize";
 
 export const Kitchen = () => {
+  const { width } = useWindowSize();
+
+  const [inputMobile, setInputMobile] = useState(true);
+
   const [inputInfo, setInputInfo] = useState("");
   const [call, setCall] = useState([
     "104",
@@ -28,6 +33,10 @@ export const Kitchen = () => {
     setInputInfo("");
   };
 
+  const handleMobile = () => {
+    setInputMobile(!inputMobile);
+  };
+
   const backspace = () => {
     setInputInfo(inputInfo.slice(0, inputInfo.length - 1));
   };
@@ -44,21 +53,32 @@ export const Kitchen = () => {
     { title: "3", click: () => addNumber("3"), color: "var(--grey)" },
     {
       title: <FaArrowAltCircleLeft />,
-      click: emptyInput,
+      click: backspace,
       color: "var(--light-red)",
     },
     { title: "0", click: () => addNumber("0"), color: "var(--grey)" },
-    { title: <FaUndoAlt />, click: backspace, color: "var(--light-red)" },
+    { title: <FaUndoAlt />, click: emptyInput, color: "var(--light-red)" },
   ];
 
   return (
     <Container>
-      <div className="changeWindow">
-        <Button setColor="var(--dark-grey)" setWidth="200px" setHeight="40px">
-          Change to Cards
-        </Button>
-      </div>
-      <section className="inputContainer">
+      {width < "500" && (
+        <div className="changeWindow">
+          <Button setColor="var(--dark-grey)" setWidth="200px" setHeight="40px" setClick={handleMobile}>
+            {inputMobile ? 'Mudar para senhas' : 'Mudar para teclado'}
+          </Button>
+        </div>
+      )}
+
+      <section
+        className={
+          width > "500"
+            ? "inputContainer"
+            : width < "500" && inputMobile
+            ? "inputContainer"
+            : "hidden"
+        }
+      >
         <article className="info"></article>
         <h2>Adicionar Senhas</h2>
         <div className="inputBox">
@@ -96,7 +116,15 @@ export const Kitchen = () => {
           </div>
         </div>
       </section>
-      <section className="cardContainer">
+      <section
+        className={
+          width > "500"
+            ? "cardContainer"
+            : width < "500" && !inputMobile
+            ? "cardContainer"
+            : "hidden"
+        }
+      >
         {call.map((item) => (
           <CallCard num={item} key={item} />
         ))}

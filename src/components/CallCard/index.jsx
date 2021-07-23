@@ -6,7 +6,12 @@ export const CallCard = ({ num }) => {
     <Container>
       <h3>{num}</h3>
       <div className="buttonBox">
-        <Button setColor="var(--light-red)" setWidth="90px" setHeight="45px" setClick={()=>{}}>
+        <Button
+          setColor="var(--light-red)"
+          setWidth="90px"
+          setHeight="45px"
+          setClick={() => {}}
+        >
           Entregar
         </Button>
       </div>
