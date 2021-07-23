@@ -1,10 +1,11 @@
 import { WindowSizeProvider } from "./windowSize";
+import { ClientProvider } from "./clients";
 
 const providers = ({ children }) => {
   return (
-   
-    <WindowSizeProvider>{children}</WindowSizeProvider>
-
+    <WindowSizeProvider>
+      <ClientProvider>{children}</ClientProvider>
+    </WindowSizeProvider>
   );
 };
 

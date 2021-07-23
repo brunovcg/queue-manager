@@ -1,4 +1,4 @@
-import { api } from "../services/api";
+
 
 import kitchen1 from "../assets/kitchen1.png";
 import kitchen2 from "../assets/kitchen2.png";
@@ -11,15 +11,12 @@ import kitchen8 from "../assets/kitchen8.png";
 import kitchen9 from "../assets/kitchen9.png";
 import kitchen10 from "../assets/kitchen10.png";
 
-const getInfo = () => {
-  api.get();
-};
 
 const clients = [
   {
     kitchen: 1,
     client: "Teichi",
-    logo: kitchen1 ? kitchen1 : "",
+    logo: kitchen1,
     alt: "kitchen-1 logo",
     calls: ["101", "102", "103", "104"],
   },
