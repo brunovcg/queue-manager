@@ -4,24 +4,17 @@ import { CallCard } from "../../components/CallCard";
 import { useState } from "react";
 import { FaArrowAltCircleLeft, FaUndoAlt } from "react-icons/fa";
 import { useWindowSize } from "../../providers/windowSize";
+import { useClient } from "../../providers/clients";
+import clients from '../../utils/clientList'
 
 export const Kitchen = () => {
   const { width } = useWindowSize();
-
+  const kitchenId = 1; 
+  const { getClient, patchClientCall, clientList } = useClient();
   const [inputMobile, setInputMobile] = useState(true);
 
   const [inputInfo, setInputInfo] = useState("");
-  const [call, setCall] = useState([
-    "104",
-    "108",
-    "110",
-    "112",
-    "115",
-    "120",
-    "130",
-    "150",
-    "180",
-  ]);
+  const [call, setCall] = useState([]);
 
   const addNumber = (data) => {
     if (inputInfo.length < 5) {
@@ -62,10 +55,16 @@ export const Kitchen = () => {
 
   return (
     <Container>
+      {/* <button onClick={()=>console.log(clientList[kitchenId-1].calls)}>teste</button> */}
       {width < "500" && (
         <div className="changeWindow">
-          <Button setColor="var(--dark-grey)" setWidth="200px" setHeight="40px" setClick={handleMobile}>
-            {inputMobile ? 'Mudar para senhas' : 'Mudar para teclado'}
+          <Button
+            setColor="var(--dark-grey)"
+            setWidth="200px"
+            setHeight="40px"
+            setClick={handleMobile}
+          >
+            {inputMobile ? "Mudar para senhas" : "Mudar para teclado"}
           </Button>
         </div>
       )}

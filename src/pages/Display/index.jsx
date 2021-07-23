@@ -4,9 +4,11 @@ import clients from "../../utils/clientList";
 import { ClientCard } from "../../components/ClientCard";
 import { useWindowSize } from "../../providers/windowSize";
 import { useState } from "react";
+import { useClient } from "../../providers/clients";
 
 export const Display = () => {
   const { width } = useWindowSize();
+  const {clientCalls} = useClient()
 
   const [selectInfo, setSelectInfo] = useState("");
 
@@ -36,7 +38,7 @@ export const Display = () => {
                 client={item.client}
                 logo={item.logo}
                 alternative={item.alt}
-                calls={item.calls}
+                calls={clientCalls[item.kitchen-1]}
               />
             ))}
           </main>
@@ -67,8 +69,8 @@ export const Display = () => {
                   kitchen={item.kitchen}
                   client={item.client}
                   logo={item.logo}
-                  alternative={item.alt}
-                  calls={item.calls}
+                  alternative={`CZ - ${item.kitchen}`}
+                  calls={clientCalls[item.kitchen-1]}
                 />
               ))}
           </div>
