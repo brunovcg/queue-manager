@@ -9,16 +9,19 @@ import clients from "../../utils/clientList";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
 import { useEffect } from "react";
+import { api } from "../../services/api";
+
+import teste from "../../assets/kitchen1.png";
 
 export const Kitchen = () => {
   const { width } = useWindowSize();
   const { handleLogout, clientAuth } = useAuth();
-  const user = localStorage.getItem("@GK:User")
-  const { getClientCalls, patchClientCall, clientList, clientCalls } = useClient();
+  const [user] = useState(localStorage.getItem("@GK:User"));
+
   const [inputMobile, setInputMobile] = useState(true);
 
   const [inputInfo, setInputInfo] = useState("");
-  const [call, setCall] = useState([]);
+  const [clientCalls, setClientCalls] = useState([]);
 
   const addNumber = (data) => {
     if (inputInfo.length < 5) {
@@ -57,23 +60,34 @@ export const Kitchen = () => {
     { title: <FaUndoAlt />, click: emptyInput, color: "var(--light-red)" },
   ];
 
+  const getCalls = () => {
+    api.get(`/info/${user}`).then((res) => {
+      setClientCalls(res.data.calls);
+    });
+  };
 
-  // useEffect(()=>{
+  const patchCall = (data) => {
+    api.patch(`/info/${user}`, { calls: [...clientCalls, data] });
+    // getCalls();
+    setInputInfo("");
+  };
 
-  //   setCall([getClient(1)])
-    
-  // },[])
+  const deleteCall = (callId) => {
+    const newCalls = clientCalls.filter((item) => item !== callId);
 
+    api.patch(`/info/${user}`, { calls: newCalls });
+  };
 
-  if(!clientAuth) {
-    return <Redirect to="/"/>
-}
+  useEffect(() => {
+    getCalls();
+  }, [clientAuth, clientCalls]);
 
-
+  if (!clientAuth) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container>
-      
       {width < "500" && (
         <div className="changeWindow">
           <Button
@@ -96,8 +110,10 @@ export const Kitchen = () => {
             : "hidden"
         }
       >
-        <button onClick={()=>console.log(clientCalls)}>teste</button>
         <article className="info"></article>
+       
+          <p>Cozinha {user}</p>
+      
         <h2>Adicionar Senhas</h2>
         <div className="inputBox">
           <input
@@ -135,7 +151,10 @@ export const Kitchen = () => {
               </Button>
             </div>
             <div className="call">
-              <Button setBackground="var(--green)">
+              <Button
+                setBackground="var(--green)"
+                setClick={() => patchCall(inputInfo)}
+              >
                 Chamar
               </Button>
             </div>
@@ -151,9 +170,10 @@ export const Kitchen = () => {
             : "hidden"
         }
       >
-        {clientCalls && clientCalls.map((item) => (
-          <CallCard num={item} key={item} />
-        ))}
+        {clientCalls &&
+          clientCalls.map((item) => (
+            <CallCard num={item} key={item} deleteCall={deleteCall} />
+          ))}
       </section>
     </Container>
   );

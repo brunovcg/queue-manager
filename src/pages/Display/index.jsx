@@ -5,20 +5,19 @@ import { ClientCard } from "../../components/ClientCard";
 import { useWindowSize } from "../../providers/windowSize";
 import { useState } from "react";
 import { useClient } from "../../providers/clients";
-import Button from '../../components/Button'
+import Button from "../../components/Button";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
 
 export const Display = () => {
   const { width } = useWindowSize();
-  const {groupCalls} = useClient()
+  const { groupCalls } = useClient();
   const { handleLogout, masterAuth } = useAuth();
   const [selectInfo, setSelectInfo] = useState("");
 
-
-  if(!masterAuth) {
-    return <Redirect to="/"/>
-}
+  if (!masterAuth) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>
@@ -34,12 +33,11 @@ export const Display = () => {
               <div>00:15</div>
             </div>
 
-          <Button setClick={()=>handleLogout()}>
-            <figure>
-              <img src={gokitchen} alt="gk-logo" />
-            </figure>
-          </Button>
-
+            <Button setClick={() => handleLogout()}>
+              <figure>
+                <img src={gokitchen} alt="gk-logo" />
+              </figure>
+            </Button>
           </header>
 
           <main>
@@ -50,7 +48,7 @@ export const Display = () => {
                 client={item.client}
                 logo={item.logo}
                 alternative={item.alt}
-                calls={groupCalls[item.kitchen-1]}
+                calls={groupCalls[item.kitchen - 1]}
               />
             ))}
           </main>
@@ -64,7 +62,9 @@ export const Display = () => {
               name="clients"
               onChange={(evt) => setSelectInfo(evt.target.value)}
             >
-              <option value="" disabled selected hidden>Escolha o Cliente</option>
+              <option value="" disabled selected hidden>
+                Escolha o Cliente
+              </option>
               {clients.map((item, index) => (
                 <option key={index} value={item.client}>
                   {item.client}
@@ -82,7 +82,7 @@ export const Display = () => {
                   client={item.client}
                   logo={item.logo}
                   alternative={`CZ - ${item.kitchen}`}
-                  calls={groupCalls[item.kitchen-1]}
+                  calls={groupCalls[item.kitchen - 1]}
                 />
               ))}
           </div>

@@ -4,11 +4,11 @@ import { useAuth } from "./providers/auth";
 
 
 function App() {
-  const { masterAuth, clientAuth } = useAuth();
+  const { masterAuth, clientAuth} = useAuth();
 
   return (
     <div className="App">
-      <button onClick={()=>console.log(masterAuth)}>teste</button>
+      {/* <button onClick={()=>console.log(`master: ${masterAuth} - client: ${clientAuth}`)}>teste</button> */}
       <GlobalStyle />
       <Routes />
     </div>

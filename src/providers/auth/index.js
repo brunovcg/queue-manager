@@ -4,7 +4,6 @@ import { api } from "../../services/api";
 const AuthContext = createContext([]);
 
 export const AuthProvider = ({ children }) => {
-
   const [masterAuth, setMasterAuth] = useState(false);
   const [clientAuth, setClientAuth] = useState(false);
 
@@ -12,10 +11,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.clear();
     setMasterAuth(false);
     setClientAuth(false);
+    console.clear();
   };
 
   useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem("@GK/Master"));
+    const auth = JSON.parse(localStorage.getItem("@GK:Master"));
 
     if (auth) {
       return setMasterAuth(true);
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   }, [masterAuth]);
 
   useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem("@GK/User"));
+    const auth = JSON.parse(localStorage.getItem("@GK:User"));
 
     if (auth) {
       return setClientAuth(true);

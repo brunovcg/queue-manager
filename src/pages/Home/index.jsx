@@ -7,13 +7,14 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { users } from "../../utils/userList";
 import { useClient } from "../../providers/clients";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { api } from "../../services/api";
 import { useAuth } from "../../providers/auth";
 
 export const Home = () => {
   const history = useHistory();
-  const { setMasterAuth, setClientAuth} = useAuth();
+  const { setMasterAuth, setClientAuth, masterAuth, clientAuth } = useAuth();
+  const { setUser,setClientCalls } = useClient();
 
   const schema = yup.object().shape({
     user: yup.string().required("Usuário Necessário"),
@@ -45,7 +46,9 @@ export const Home = () => {
       api.get(`/info/${kitchenId}`).then((res) => {
         console.log(res.data);
         if (res.data.pass === infos.pass) {
-          localStorage.setItem("@GK:User", JSON.stringify(kitchenId));
+          localStorage.setItem("@GK:User", kitchenId);
+          setUser(kitchenId);
+          setClientCalls(kitchenId);
           setClientAuth(true);
           return history.push("/kitchen");
         }
@@ -54,6 +57,14 @@ export const Home = () => {
 
     reset();
   };
+
+  if (masterAuth) {
+    return <Redirect to="/display" />;
+  }
+
+  if (clientAuth) {
+    return <Redirect to="/kitchen" />;
+  }
 
   return (
     <Container>

@@ -11,7 +11,9 @@ export const Container = styled.div`
   align-items: center;
 
   @media (max-width: 500px) {
-      width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 38%;
     }
 
   h3, .buttonBox{
@@ -19,7 +21,11 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: 50%;
-    font-size: 3rem;
+    font-size: 4.5vw;
+
+    @media (max-width: 500px) {
+      font-size: 9vw;
+    }
   }
 
 `;
