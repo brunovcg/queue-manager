@@ -4,7 +4,6 @@ import Button from "../../components/Button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { users } from "../../utils/userList";
 import { useClient } from "../../providers/clients";
 import { useHistory, Redirect } from "react-router-dom";

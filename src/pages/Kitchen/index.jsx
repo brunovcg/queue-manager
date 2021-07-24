@@ -4,14 +4,10 @@ import { CallCard } from "../../components/CallCard";
 import { useState } from "react";
 import { FaArrowAltCircleLeft, FaUndoAlt } from "react-icons/fa";
 import { useWindowSize } from "../../providers/windowSize";
-import { useClient } from "../../providers/clients";
-import clients from "../../utils/clientList";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
 import { useEffect } from "react";
 import { api } from "../../services/api";
-
-import teste from "../../assets/kitchen1.png";
 
 export const Kitchen = () => {
   const { width } = useWindowSize();
@@ -68,7 +64,6 @@ export const Kitchen = () => {
 
   const patchCall = (data) => {
     api.patch(`/info/${user}`, { calls: [...clientCalls, data] });
-    // getCalls();
     setInputInfo("");
   };
 
@@ -80,7 +75,7 @@ export const Kitchen = () => {
 
   useEffect(() => {
     getCalls();
-  }, [clientAuth, clientCalls]);
+  }, [clientCalls]);
 
   if (!clientAuth) {
     return <Redirect to="/" />;
@@ -110,11 +105,8 @@ export const Kitchen = () => {
             : "hidden"
         }
       >
-        <article className="info"></article>
-       
-          <p>Cozinha {user}</p>
-      
-        <h2>Adicionar Senhas</h2>
+        <p>Cozinha {user}</p>
+        <h2>Gestor de Senhas</h2>
         <div className="inputBox">
           <input
             maxLength="5"

@@ -6,7 +6,6 @@ const ClientContext = createContext([]);
 export const ClientProvider = ({ children }) => {
   const [groupCalls, setGroupCalls] = useState([]);
   const [clientCalls, setClientCalls] = useState([]);
-  const [user, setUser] = useState("");
 
   const getGroupCalls = () => {
     api.get(`/info`).then((res) => {
@@ -14,13 +13,9 @@ export const ClientProvider = ({ children }) => {
     });
   };
 
-
-  const getClientCalls = (data)=>{
-    setClientCalls(data)
-  }
-
-
-
+  const getClientCalls = (data) => {
+    setClientCalls(data);
+  };
 
   useEffect(() => {
     getGroupCalls();
@@ -32,11 +27,9 @@ export const ClientProvider = ({ children }) => {
         getGroupCalls,
         groupCalls,
         clientCalls,
-        setUser,
         getClientCalls,
-        user,
         setClientCalls,
-        setGroupCalls
+        setGroupCalls,
       }}
     >
       {children}

@@ -9,6 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 500px) {
     flex-direction: row;

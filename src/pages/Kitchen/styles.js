@@ -12,10 +12,10 @@ export const Container = styled.main`
     flex-direction: column;
   }
 
-  .changeWindow{
+  .changeWindow {
     height: 10vh;
 
-    button{
+    button {
       color: var(--white);
     }
   }
@@ -34,14 +34,11 @@ export const Container = styled.main`
       height: 90vh;
     }
 
-    .info {
-      button {
-        color: var(--white);
-      }
+    p {
     }
 
     h2 {
-      height: 15%;
+      height: 12%;
       display: flex;
       align-items: center;
     }
@@ -120,7 +117,7 @@ export const Container = styled.main`
     }
   }
 
-  .hidden{
+  .hidden {
     display: none;
   }
 `;

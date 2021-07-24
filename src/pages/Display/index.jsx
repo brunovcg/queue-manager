@@ -32,14 +32,10 @@ export const Display = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-
-        handleTimer()
-
+      handleTimer();
     }, 1000);
     return () => clearInterval(interval);
   }, [timer]);
-
-
 
   if (!masterAuth) {
     return <Redirect to="/" />;
@@ -88,9 +84,6 @@ export const Display = () => {
               name="clients"
               onChange={(evt) => setSelectInfo(evt.target.value)}
             >
-              <option value="" disabled selected hidden>
-                Escolha o Cliente
-              </option>
               {clients.map((item, index) => (
                 <option key={index} value={item.client}>
                   {item.client}
