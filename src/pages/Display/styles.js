@@ -51,7 +51,7 @@ export const Container = styled.main`
         color: var(--red);
         font-size: 3vw;
         font-weight: bold;
-        animation: blink 0.75s linear infinite;
+        animation: blink 0.8s linear infinite;
       }
     }
 

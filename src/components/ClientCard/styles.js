@@ -73,7 +73,7 @@ export const Section = styled.section`
       padding-top: 10px;
       width: 90%;
       border-top: 2px solid var(--light-grey);
-      font-size: 3.2vw;
+      font-size: 2.4vw;
       text-align: center;
       @media (max-width: 500px) {
         font-size: 14vw;

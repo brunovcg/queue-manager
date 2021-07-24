@@ -3,7 +3,7 @@ import gokitchen from "../../assets/gokitchen.png";
 import clients from "../../utils/clientList";
 import { ClientCard } from "../../components/ClientCard";
 import { useWindowSize } from "../../providers/windowSize";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useClient } from "../../providers/clients";
 import Button from "../../components/Button";
 import { useAuth } from "../../providers/auth";
@@ -11,9 +11,35 @@ import { Redirect } from "react-router";
 
 export const Display = () => {
   const { width } = useWindowSize();
-  const { groupCalls } = useClient();
+  const { groupCalls, getGroupCalls } = useClient();
   const { handleLogout, masterAuth } = useAuth();
   const [selectInfo, setSelectInfo] = useState("");
+  const [timer, setTimer] = useState(20);
+
+  const handleTimer = () => {
+    if (timer > 0) {
+      setTimer(timer - 1);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getGroupCalls();
+      setTimer(20);
+    }, 20000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+
+        handleTimer()
+
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
+
+
 
   if (!masterAuth) {
     return <Redirect to="/" />;
@@ -30,7 +56,7 @@ export const Display = () => {
             </p>
             <div className="countDown">
               <p>Atualiza em:</p>
-              <div>00:15</div>
+              <div>{timer}s</div>
             </div>
 
             <Button setClick={() => handleLogout()}>

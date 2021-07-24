@@ -35,7 +35,8 @@ export const ClientProvider = ({ children }) => {
         setUser,
         getClientCalls,
         user,
-        setClientCalls
+        setClientCalls,
+        setGroupCalls
       }}
     >
       {children}
