@@ -114,7 +114,6 @@ export const Container = styled.main`
 
   .buttonBox {
     button {
-      color: var(--white);
 
       @media (max-width: 500px) {
         width: 35vw;

@@ -5,12 +5,16 @@ import { useState } from "react";
 import { FaArrowAltCircleLeft, FaUndoAlt } from "react-icons/fa";
 import { useWindowSize } from "../../providers/windowSize";
 import { useClient } from "../../providers/clients";
-import clients from '../../utils/clientList'
+import clients from "../../utils/clientList";
+import { useAuth } from "../../providers/auth";
+import { Redirect } from "react-router";
+import { useEffect } from "react";
 
 export const Kitchen = () => {
   const { width } = useWindowSize();
-  const kitchenId = 1; 
-  const { getClient, patchClientCall, clientList } = useClient();
+  const { handleLogout, clientAuth } = useAuth();
+  const user = localStorage.getItem("@GK:User")
+  const { getClientCalls, patchClientCall, clientList, clientCalls } = useClient();
   const [inputMobile, setInputMobile] = useState(true);
 
   const [inputInfo, setInputInfo] = useState("");
@@ -53,13 +57,27 @@ export const Kitchen = () => {
     { title: <FaUndoAlt />, click: emptyInput, color: "var(--light-red)" },
   ];
 
+
+  // useEffect(()=>{
+
+  //   setCall([getClient(1)])
+    
+  // },[])
+
+
+  if(!clientAuth) {
+    return <Redirect to="/"/>
+}
+
+
+
   return (
     <Container>
-      {/* <button onClick={()=>console.log(clientList[kitchenId-1].calls)}>teste</button> */}
+      
       {width < "500" && (
         <div className="changeWindow">
           <Button
-            setColor="var(--dark-grey)"
+            setBackground="var(--dark-grey)"
             setWidth="200px"
             setHeight="40px"
             setClick={handleMobile}
@@ -78,12 +96,13 @@ export const Kitchen = () => {
             : "hidden"
         }
       >
+        <button onClick={()=>console.log(clientCalls)}>teste</button>
         <article className="info"></article>
         <h2>Adicionar Senhas</h2>
         <div className="inputBox">
           <input
             maxLength="5"
-            placeholder="digite a informação (máx 5)"
+            placeholder="digite a senha (máx 5)"
             value={inputInfo}
             type="text"
             onChange={(typed) => setInputInfo(typed.target.value)}
@@ -96,7 +115,7 @@ export const Kitchen = () => {
                 setHeight="60px"
                 setWidth="60px"
                 setFont="2rem"
-                setColor={item.color}
+                setBackground={item.color}
                 setClick={item.click}
                 key={index}
               >
@@ -107,10 +126,18 @@ export const Kitchen = () => {
 
           <div className="actionButtons">
             <div className="logout">
-              <Button setColor="var(--red)">Logout</Button>
+              <Button
+                setBackground="var(--red)"
+                setClick={() => handleLogout()}
+                setColor="var(--white)"
+              >
+                Logout
+              </Button>
             </div>
             <div className="call">
-              <Button setColor="var(--green)">Chamar</Button>
+              <Button setBackground="var(--green)">
+                Chamar
+              </Button>
             </div>
           </div>
         </div>
@@ -124,7 +151,7 @@ export const Kitchen = () => {
             : "hidden"
         }
       >
-        {call.map((item) => (
+        {clientCalls && clientCalls.map((item) => (
           <CallCard num={item} key={item} />
         ))}
       </section>

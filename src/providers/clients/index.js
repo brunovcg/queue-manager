@@ -5,19 +5,23 @@ const ClientContext = createContext([]);
 
 export const ClientProvider = ({ children }) => {
 
-  const [clientCalls, setClientCalls] = useState([]);
+  const [groupCalls, setGroupCalls] = useState([]);
+  const [clientCalls, setClientCalls] = useState([])
 
-  const getClientCalls = () => {
+  const getGroupCalls = () => {
     api.get(`/info`).then((res) => {
-      setClientCalls(res.data.map(it=>it.calls));
+      setGroupCalls(res.data.map(it=>it.calls));
       console.log(res.data.map(it=>it.calls));
     });
   };
 
-  const getClient = (id) => {
-    api.get(`/info/${id}`).then((res) => res.data.calls);
+  const getClientCalls = (id) => {
+    api.get(`/info/${id}`).then((res) =>  { 
+      setClientCalls(res.data.calls)
+      console.log(res.data.calls)
+      }  );
+    
   };
-
 
 
   const patchClientCall = (id, calls) => {
@@ -25,14 +29,15 @@ export const ClientProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getClientCalls();
+    getGroupCalls();
+    getClientCalls(1)
   }, []);
 
 
 
   return (
     <ClientContext.Provider
-      value={{ getClientCalls, patchClientCall, getClient, clientCalls}}
+      value={{ getGroupCalls, patchClientCall, getClientCalls, groupCalls, clientCalls}}
     >
       {children}
     </ClientContext.Provider>

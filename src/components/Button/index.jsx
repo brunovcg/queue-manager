@@ -7,14 +7,16 @@ const Button = ({
   setClick,
   setWidth,
   setFont,
+  setBackground,
 }) => {
   return (
     <MyButton
-      setColor={setColor}
+      setBackground={setBackground}
       onClick={setClick}
       setHeight={setHeight}
       setWidth={setWidth}
       setFont={setFont}
+      setColor={setColor}
     >
       {children}
     </MyButton>

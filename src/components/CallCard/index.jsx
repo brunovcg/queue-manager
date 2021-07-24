@@ -7,7 +7,7 @@ export const CallCard = ({ num }) => {
       <h3>{num}</h3>
       <div className="buttonBox">
         <Button
-          setColor="var(--light-red)"
+          setBackground="var(--light-red)"
           setWidth="90px"
           setHeight="45px"
           setClick={() => {}}

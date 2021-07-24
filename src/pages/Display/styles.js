@@ -55,18 +55,21 @@ export const Container = styled.main`
       }
     }
 
-    figure {
-      width: 5vw;
+    button {
+      width: fit-content;
+      figure {
+        width: 5vw;
 
-      display: flex;
-      align-items: center;
-      position: absolute;
-      top: 5px;
-      right: 10px;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 5px;
+        right: 10px;
 
-      img {
-        height: 8vh;
-        box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
+        img {
+          height: 8vh;
+          box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
+        }
       }
     }
   }
@@ -91,20 +94,20 @@ export const MobileContainer = styled.main`
   height: 100vh;
   background-color: var(--light-grey);
 
-  .selectBox{
+  .selectBox {
     height: 15%;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    select{
+
+    select {
       width: 80%;
       height: 70%;
       font-size: 8vw;
     }
   }
 
-  .callBox{
+  .callBox {
     background-color: var(--grey);
     height: 85%;
     display: flex;
@@ -112,7 +115,5 @@ export const MobileContainer = styled.main`
     justify-content: start;
     align-items: center;
     overflow-y: auto;
-
-
   }
 `;

@@ -9,9 +9,11 @@ import { users } from "../../utils/userList";
 import { useClient } from "../../providers/clients";
 import { useHistory } from "react-router-dom";
 import { api } from "../../services/api";
+import { useAuth } from "../../providers/auth";
 
 export const Home = () => {
   const history = useHistory();
+  const { setMasterAuth, setClientAuth} = useAuth();
 
   const schema = yup.object().shape({
     user: yup.string().required("Usuário Necessário"),
@@ -34,28 +36,31 @@ export const Home = () => {
     };
 
     if (infos.user === "Master" && infos.pass === "kitchen2020") {
+      localStorage.setItem("@GK:Master", JSON.stringify("Master"));
+      setMasterAuth(true);
       return history.push("/display");
     } else {
-      api.get(`/info/${infos.user.slice(-1)}`).then((res) => {
-        console.log(res.data)
+      const kitchenId = infos.user.slice(infos.user.length === 4 ? -1 : -2);
+
+      api.get(`/info/${kitchenId}`).then((res) => {
+        console.log(res.data);
         if (res.data.pass === infos.pass) {
+          localStorage.setItem("@GK:User", JSON.stringify(kitchenId));
+          setClientAuth(true);
           return history.push("/kitchen");
         }
       });
     }
-  //  falta pegar a condição 10 pois o slice so pega 1
 
     reset();
-
-    console.log(infos);
   };
 
   return (
     <Container>
       <div className="greenBox">
         <figure className="gk-neg">
-          <img src={gokitchenNeg} />
-        </figure>{" "}
+          <img src={gokitchenNeg} alt="gk img" />
+        </figure>
       </div>
       <form className="whiteBox" onSubmit={handleSubmit(onSubmitFunction)}>
         <h2>Acesse sua conta</h2>
@@ -79,7 +84,8 @@ export const Home = () => {
         </div>
         <div className="buttonBox">
           <Button
-            setColor="var(--gk-green)"
+            setBackground="var(--gk-green)"
+            setColor="var(--white)"
             type="submit"
             setHeight="45px"
             setWidth="90px"

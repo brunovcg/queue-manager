@@ -2,8 +2,8 @@ import styled from "styled-components";
 const MyButton = styled.button`
   width: ${(props) => (props.setWidth ? props.setWidth : "60px")};
   height: ${(props) => (props.setHeight ? props.setHeight : "30px")};
-  background-color: ${(props) => (props.setColor ? props.setColor : "blue")};
-  color: var(--black);
+  background-color: ${(props) => (props.setBackground ? props.setBackground : "grey")};
+  color: ${(props) => (props.setColor ? props.setColor : "black")};
   display: flex;
   align-items: center;
   justify-content: center;
