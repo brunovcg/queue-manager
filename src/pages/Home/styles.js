@@ -78,7 +78,7 @@ export const Container = styled.main`
       input,
       select {
         background: var(--white);
-        height: 35px;
+        height: fit-content;
         width: 100%;
         margin-top: 50px;
         border: 0;
