@@ -23,6 +23,7 @@ export const Display = () => {
   };
 
   useEffect(() => {
+    getGroupCalls();
     const interval = setInterval(() => {
       getGroupCalls();
       setTimer(20);

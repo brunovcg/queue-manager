@@ -46,7 +46,7 @@ export const Home = () => {
         console.log(res.data);
         if (res.data.pass === infos.pass) {
           localStorage.setItem("@GK:User", kitchenId);
-          setUser(kitchenId);
+          // setUser(kitchenId);
           setClientCalls(kitchenId);
           setClientAuth(true);
           return history.push("/kitchen");
