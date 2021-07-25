@@ -29,7 +29,7 @@ export const Display = () => {
       setTimer(20);
     }, 20000);
     return () => clearInterval(interval);
-  }, []);
+  }, [masterAuth]);
 
   useEffect(() => {
     const interval = setInterval(() => {

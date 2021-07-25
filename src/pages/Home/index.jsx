@@ -46,14 +46,15 @@ export const Home = () => {
       const kitchenId = infos.user.slice(infos.user.length === 4 ? -1 : -2);
 
       api.get(`/info/${kitchenId}`).then((res) => {
-     
         if (res.data.pass === infos.pass) {
           localStorage.setItem("@GK:User", kitchenId);
-          toast.info(`Bem Vindo! ${res.data.client}`)
+          toast.info(`Bem Vindo! ${res.data.client}`);
           setClientCalls(kitchenId);
           setClientAuth(true);
           return history.push("/kitchen");
-        } else {toast.error("Senha errada")}
+        } else {
+          toast.error("Senha errada");
+        }
       });
     }
 
