@@ -64,18 +64,19 @@ export const Kitchen = () => {
   };
 
   const patchCall = (data) => {
-    api
-      .patch(`/info/${user}`, { calls: [...clientCalls, data] })
-      .then((_) => width < "500" && toast.info("Senha adicionada"));
-    setInputInfo("");
-    getCalls();
+    api.patch(`/info/${user}`, { calls: [...clientCalls, data] }).then((_) => {
+      width < "500" && toast.info("Senha adicionada");
+      setInputInfo("");
+      getCalls();
+    });
   };
 
   const deleteCall = (callId) => {
     const newCalls = clientCalls.filter((item) => item !== callId);
 
-    api.patch(`/info/${user}`, { calls: newCalls });
-    getCalls();
+    api.patch(`/info/${user}`, { calls: newCalls }).then((_) => {
+      getCalls();
+    });
   };
 
   useEffect(() => {
