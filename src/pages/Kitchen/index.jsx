@@ -64,11 +64,15 @@ export const Kitchen = () => {
   };
 
   const patchCall = (data) => {
-    api.patch(`/info/${user}`, { calls: [...clientCalls, data] }).then((_) => {
-      width < "500" && toast.info("Senha adicionada");
-      setInputInfo("");
-      getCalls();
-    });
+    if (inputInfo !== "") {
+      api
+        .patch(`/info/${user}`, { calls: [...clientCalls, data] })
+        .then((_) => {
+          width < "500" && toast.info(`Senha ${inputInfo} adicionada`);
+          setInputInfo("");
+          getCalls();
+        });
+    } else {toast.error("Precisa digitar a senha")}
   };
 
   const deleteCall = (callId) => {
@@ -171,8 +175,8 @@ export const Kitchen = () => {
       >
         <div className="clientCallsBox">
           {clientCalls &&
-            clientCalls.map((item) => (
-              <CallCard num={item} key={item} deleteCall={deleteCall} />
+            clientCalls.map((item, index) => (
+              <CallCard num={item} key={index} deleteCall={deleteCall} />
             ))}
         </div>
       </section>
