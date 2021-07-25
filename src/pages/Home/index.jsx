@@ -9,11 +9,12 @@ import { useClient } from "../../providers/clients";
 import { useHistory, Redirect } from "react-router-dom";
 import { api } from "../../services/api";
 import { useAuth } from "../../providers/auth";
+import { toast } from "react-toastify";
 
 export const Home = () => {
   const history = useHistory();
   const { setMasterAuth, setClientAuth, masterAuth, clientAuth } = useAuth();
-  const { setUser,setClientCalls } = useClient();
+  const { setClientCalls } = useClient();
 
   const schema = yup.object().shape({
     user: yup.string().required("Usuário Necessário"),
@@ -39,18 +40,20 @@ export const Home = () => {
       localStorage.setItem("@GK:Master", JSON.stringify("Master"));
       setMasterAuth(true);
       return history.push("/display");
+    } else if (infos.user === "Master" && infos.pass !== "kitchen2020") {
+      toast.error("Senha errada");
     } else {
       const kitchenId = infos.user.slice(infos.user.length === 4 ? -1 : -2);
 
       api.get(`/info/${kitchenId}`).then((res) => {
-        console.log(res.data);
+     
         if (res.data.pass === infos.pass) {
           localStorage.setItem("@GK:User", kitchenId);
-          // setUser(kitchenId);
+          toast.info(`Bem Vindo! ${res.data.client}`)
           setClientCalls(kitchenId);
           setClientAuth(true);
           return history.push("/kitchen");
-        }
+        } else {toast.error("Senha errada")}
       });
     }
 

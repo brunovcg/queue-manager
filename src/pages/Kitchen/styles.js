@@ -35,12 +35,15 @@ export const Container = styled.main`
     }
 
     p {
+      color: var(--black);
+      font-family: 'Otomanopee One', sans-serif;
     }
 
     h2 {
       height: 12%;
       display: flex;
       align-items: center;
+      color: var(--dark-grey);
     }
 
     .inputBox {
@@ -114,6 +117,7 @@ export const Container = styled.main`
     @media (max-width: 500px) {
       width: 100%;
       height: 90vh;
+      justify-content: center;
     }
   }
 

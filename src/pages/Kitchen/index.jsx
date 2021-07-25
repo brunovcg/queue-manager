@@ -8,6 +8,7 @@ import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
 import { useEffect } from "react";
 import { api } from "../../services/api";
+import { toast } from "react-toastify";
 
 export const Kitchen = () => {
   const { width } = useWindowSize();
@@ -38,15 +39,15 @@ export const Kitchen = () => {
   };
 
   const keys = [
-    { title: "7", click: () => addNumber("7"), color: "var(--grey)" },
-    { title: "8", click: () => addNumber("8"), color: "var(--grey)" },
-    { title: "9", click: () => addNumber("9"), color: "var(--grey)" },
-    { title: "4", click: () => addNumber("4"), color: "var(--grey)" },
-    { title: "5", click: () => addNumber("5"), color: "var(--grey)" },
-    { title: "6", click: () => addNumber("6"), color: "var(--grey)" },
     { title: "1", click: () => addNumber("1"), color: "var(--grey)" },
     { title: "2", click: () => addNumber("2"), color: "var(--grey)" },
     { title: "3", click: () => addNumber("3"), color: "var(--grey)" },
+    { title: "4", click: () => addNumber("4"), color: "var(--grey)" },
+    { title: "5", click: () => addNumber("5"), color: "var(--grey)" },
+    { title: "6", click: () => addNumber("6"), color: "var(--grey)" },
+    { title: "7", click: () => addNumber("7"), color: "var(--grey)" },
+    { title: "8", click: () => addNumber("8"), color: "var(--grey)" },
+    { title: "9", click: () => addNumber("9"), color: "var(--grey)" },
     {
       title: <FaArrowAltCircleLeft />,
       click: backspace,
@@ -63,7 +64,12 @@ export const Kitchen = () => {
   };
 
   const patchCall = (data) => {
-    api.patch(`/info/${user}`, { calls: [...clientCalls, data] });
+    api.patch(`/info/${user}`, { calls: [...clientCalls, data] }).then(
+      
+      (_)=> width < "500" && toast.info("Senha adicionada")
+
+
+    );
     setInputInfo("");
   };
 

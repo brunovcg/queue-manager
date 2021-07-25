@@ -54,8 +54,12 @@ export const Container = styled.main`
       color: var(--dark-grey);
     }
     h3 {
-      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
       color: var(--grey);
+      width: 70%;
+      font-size: 1.6vw;
       @media (max-width: 500px) {
         font-size: 4vw;
         
