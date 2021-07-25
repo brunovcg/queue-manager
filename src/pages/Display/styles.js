@@ -95,21 +95,24 @@ export const MobileContainer = styled.main`
   background-color: var(--light-grey);
 
   .selectBox {
-    height: 15%;
+    min-height: 15%;
+    height: fit-content;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 
     select {
-      width: 80%;
+      width: 60%;
       height: 70%;
       font-size: 8vw;
+
+  
     }
   }
 
   .callBox {
     background-color: var(--grey);
-    height: 85%;
+    min-height: 85%;
     display: flex;
     flex-direction: column;
     justify-content: start;

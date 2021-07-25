@@ -14,10 +14,8 @@ export const Container = styled.main`
 
   .changeWindow {
     height: 10vh;
-
-    button {
-      color: var(--white);
-    }
+    display: flex;
+    align-items: center;
   }
 
   .inputContainer {
@@ -36,7 +34,7 @@ export const Container = styled.main`
 
     p {
       color: var(--black);
-      font-family: 'Otomanopee One', sans-serif;
+      font-family: "Otomanopee One", sans-serif;
     }
 
     h2 {
@@ -109,10 +107,19 @@ export const Container = styled.main`
     height: 90%;
     border: 2px solid var(--grey);
     display: flex;
-    align-items: start;
-    justify-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     overflow-y: auto;
+
+    .clientCallsBox {
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      align-items: start;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
 
     @media (max-width: 500px) {
       width: 100%;

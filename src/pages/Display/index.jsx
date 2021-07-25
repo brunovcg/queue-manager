@@ -81,10 +81,16 @@ export const Display = () => {
       {width < 500 && (
         <MobileContainer>
           <div className="selectBox">
+          <Button
+            setBackground="var(--red)"
+            setColor="var(--white)"
+            setClick={()=>handleLogout()}
+          >Logout</Button>
             <select
               name="clients"
               onChange={(evt) => setSelectInfo(evt.target.value)}
             >
+              <option hidden>Escolha</option>
               {clients.map((item, index) => (
                 <option key={index} value={item.client}>
                   {item.client}

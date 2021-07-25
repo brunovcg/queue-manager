@@ -64,24 +64,23 @@ export const Kitchen = () => {
   };
 
   const patchCall = (data) => {
-    api.patch(`/info/${user}`, { calls: [...clientCalls, data] }).then(
-      
-      (_)=> width < "500" && toast.info("Senha adicionada")
-
-
-    );
+    api
+      .patch(`/info/${user}`, { calls: [...clientCalls, data] })
+      .then((_) => width < "500" && toast.info("Senha adicionada"));
     setInputInfo("");
+    getCalls();
   };
 
   const deleteCall = (callId) => {
     const newCalls = clientCalls.filter((item) => item !== callId);
 
     api.patch(`/info/${user}`, { calls: newCalls });
+    getCalls();
   };
 
   useEffect(() => {
     getCalls();
-  }, [clientCalls]);
+  }, [clientAuth]);
 
   if (!clientAuth) {
     return <Redirect to="/" />;
@@ -93,6 +92,7 @@ export const Kitchen = () => {
         <div className="changeWindow">
           <Button
             setBackground="var(--dark-grey)"
+            setColor="var(--white)"
             setWidth="200px"
             setHeight="40px"
             setClick={handleMobile}
@@ -168,10 +168,12 @@ export const Kitchen = () => {
             : "hidden"
         }
       >
-        {clientCalls &&
-          clientCalls.map((item) => (
-            <CallCard num={item} key={item} deleteCall={deleteCall} />
-          ))}
+        <div className="clientCallsBox">
+          {clientCalls &&
+            clientCalls.map((item) => (
+              <CallCard num={item} key={item} deleteCall={deleteCall} />
+            ))}
+        </div>
       </section>
     </Container>
   );
