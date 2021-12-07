@@ -17,9 +17,9 @@ export const ClientProvider = ({ children }) => {
     setClientCalls(data);
   };
 
-  useEffect(() => {
-    getGroupCalls();
-  }, []);
+  // useEffect(() => {
+  //   getGroupCalls();
+  // }, []);
 
   return (
     <ClientContext.Provider
