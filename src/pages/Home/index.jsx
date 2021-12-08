@@ -1,25 +1,19 @@
-import { Container } from "./styles";
+import { Styled } from "./styles";
 import gokitchenNeg from "../../assets/gokitchen-neg.png";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useHistory, Redirect } from "react-router-dom";
-import {useToken} from "../../providers/token"
-import { useEffect } from "react";
-
+import {  Redirect } from "react-router-dom";
+import { useAuth } from "../../providers/auth";
 
 export const Home = () => {
-
-  const {getToken, token, userId, userType, setUserType} = useToken()
-
-  const history = useHistory();
+  const { getToken, token} = useAuth();
 
   const schema = yup.object().shape({
     username: yup.string().required("Usuário Necessário"),
     password: yup.string().required("Senha é necessária"),
   });
-
 
   const {
     register,
@@ -31,32 +25,39 @@ export const Home = () => {
   });
 
   const onSubmitFunction = ({ username, password }) => {
-    const data= {
+    const data = {
       username,
       password,
     };
-    getToken(data)
-    reset();
+    let checkLogin = getToken(data);
+
+    if (checkLogin) {
+      reset();
+    }
   };
 
   if (token !== "") {
     return <Redirect to="/dashboard" />;
   }
 
-
   return (
-    <Container>
+    <Styled>
       <div className="greenBox">
         <figure className="gk-neg">
           <img src={gokitchenNeg} alt="gk img" />
         </figure>
       </div>
       <form className="whiteBox" onSubmit={handleSubmit(onSubmitFunction)}>
+        <h1>Gerenciador de Pedidos</h1>
         <h2>Acesse sua conta</h2>
         <h3>Escolha seu usuário e digite sua senha</h3>
         <div className="inputBox">
-          <input placeholder="Digite seu usuário" type="text" {...register("username")}/>
- 
+          <input
+            placeholder="Digite seu usuário"
+            type="text"
+            {...register("username")}
+          />
+
           <div className="error">{errors.username?.message}</div>
           <input
             type="password"
@@ -77,6 +78,6 @@ export const Home = () => {
           </Button>
         </div>
       </form>
-    </Container>
+    </Styled>
   );
 };

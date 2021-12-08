@@ -12,7 +12,7 @@ import { Redirect } from "react-router";
 export const Display = () => {
   const { width } = useWindowSize();
   const { groupCalls, getGroupCalls } = useClient();
-  const { handleLogout, masterAuth } = useAuth();
+  const { logout, token } = useAuth();
   const [selectInfo, setSelectInfo] = useState("");
   const [timer, setTimer] = useState(20);
 
@@ -29,7 +29,7 @@ export const Display = () => {
       setTimer(20);
     }, 20000);
     return () => clearInterval(interval);
-  }, [masterAuth]);
+  }, [token]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,7 +38,7 @@ export const Display = () => {
     return () => clearInterval(interval);
   }, [timer]);
 
-  if (!masterAuth) {
+  if (token === "") {
     return <Redirect to="/" />;
   }
 
@@ -56,7 +56,7 @@ export const Display = () => {
               <div>{timer}s</div>
             </div>
 
-            <Button setClick={() => handleLogout()}>
+            <Button setClick={() => logout()}>
               <figure>
                 <img src={gokitchen} alt="gk-logo" />
               </figure>
@@ -84,7 +84,7 @@ export const Display = () => {
           <Button
             setBackground="var(--red)"
             setColor="var(--white)"
-            setClick={()=>handleLogout()}
+            setClick={()=>logout()}
           >Logout</Button>
             <select
               name="clients"

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const Styled = styled.main`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -49,6 +49,12 @@ export const Container = styled.main`
       justify-content: start;
       padding-top: 40px;
     }
+    h1 {
+      text-align: center;
+      margin: 0 10px 25px 10px;
+      font-size: 40px;
+      color: var(--gk-green);
+    }
 
     h2 {
       color: var(--dark-grey);
@@ -62,7 +68,6 @@ export const Container = styled.main`
       font-size: 1.6vw;
       @media (max-width: 500px) {
         font-size: 4vw;
-        
       }
     }
 
@@ -118,7 +123,6 @@ export const Container = styled.main`
 
   .buttonBox {
     button {
-
       @media (max-width: 500px) {
         width: 35vw;
         height: 15vw;

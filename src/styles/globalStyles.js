@@ -30,7 +30,7 @@ export default createGlobalStyle`
         font-family: 'Roboto', sans-serif;
     }
 
-    h2{
+    h1, h2{
         font-family: 'Otomanopee One', sans-serif;
     }
 

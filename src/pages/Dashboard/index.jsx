@@ -2,15 +2,16 @@ import Styled from "./styles";
 import Superuser from "./superuser";
 import User from "./user";
 import Staff from "./staff";
-import { useToken } from "../../providers/token";
+import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router-dom";
-const Dashboard = () => {
 
-  const { userType, token } = useToken();
+export const Dashboard = () => {
 
-  // if (token === "") {
-  //   return <Redirect to="/" />;
-  // }
+  const { userType, token } = useAuth();
+
+  if (token === "") {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Styled>
@@ -24,5 +25,3 @@ const Dashboard = () => {
     </Styled>
   );
 };
-
-export default Dashboard;

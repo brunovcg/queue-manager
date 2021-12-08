@@ -12,8 +12,8 @@ import { toast } from "react-toastify";
 
 export const Kitchen = () => {
   const { width } = useWindowSize();
-  const { handleLogout, clientAuth } = useAuth();
-  const [user] = useState(localStorage.getItem("@GK:User"));
+  const { logout, token, userId } = useAuth();
+  const user = userId
 
   const [inputMobile, setInputMobile] = useState(true);
 
@@ -85,9 +85,9 @@ export const Kitchen = () => {
 
   useEffect(() => {
     getCalls();
-  }, [clientAuth]);
+  }, [token]);
 
-  if (!clientAuth) {
+  if (token === "") {
     return <Redirect to="/" />;
   }
 
@@ -147,7 +147,7 @@ export const Kitchen = () => {
             <div className="logout">
               <Button
                 setBackground="var(--red)"
-                setClick={() => handleLogout()}
+                setClick={() => logout()}
                 setColor="var(--white)"
               >
                 Logout
