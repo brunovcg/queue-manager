@@ -23,7 +23,9 @@ export const AuthProvider = ({ children }) => {
 
   const logout = ()=> {
     localStorage.clear()
-    history.push("/")
+    
+    history.go("/")
+   
   }
 
   const getToken = (data) => {
@@ -36,7 +38,6 @@ export const AuthProvider = ({ children }) => {
             JSON.stringify(response.data[Object.keys(response.data)[i]])
             );
         }
-        console.log(response);
 
         setUserType(response.data.user_type);
         setUserId(response.data.user_id);

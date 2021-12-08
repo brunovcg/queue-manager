@@ -6,9 +6,7 @@ const Superuser = () => {
 
     const [modal, setModal] = useState(false)
 
-    const openModal = () => {
-        setModal(true)
-    }
+    
 
 
     const buttons = [
@@ -19,9 +17,12 @@ const Superuser = () => {
     return(
         <Styled>
 
-            <button onClick={openModal}>teste</button>
 
-            {modal && <PopUpModal title="Teste" content="Testando" buttons={buttons} setModal={setModal}/>}
+            
+
+            {/* <button onClick={openModal}>teste</button>
+
+            {modal && <PopUpModal title="Teste" content="Testando" buttons={buttons} setModal={setModal}/>} */}
 
           
         </Styled>
