@@ -13,7 +13,6 @@ const HookForm = ({ schema, fields, action, buttonTitle = "Submeter" }) => {
   });
 
 
-
   return (
     <form
       onSubmit={handleSubmit(action)}
@@ -29,6 +28,7 @@ const HookForm = ({ schema, fields, action, buttonTitle = "Submeter" }) => {
             placeholder={item.placeholder}
             register={register}
             datalist={item.datalist}
+            onChange={item.onChange}
           />
         ))}
 

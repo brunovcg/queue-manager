@@ -8,7 +8,7 @@ const Styled = styled.button`
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   margin: 5px;
   font-weight: bold;
   font-size: ${(props) => (props.setFont ? props.setFont : "20px")};

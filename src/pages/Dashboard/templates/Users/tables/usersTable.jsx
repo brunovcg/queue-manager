@@ -1,8 +1,9 @@
 import Table from "../../../../../components/Table";
 import { useUser } from "../../../../../providers/users";
 import { useDashboard } from "../../../../../providers/dashboard";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt,FaUserEdit, } from "react-icons/fa";
 import Button from "../../../../../components/Button";
+import UpdateUserForm from "../forms/updateUser"
 
 const UsersTable = () => {
   const { allUsers, deleteUser } = useUser();
@@ -33,6 +34,12 @@ const UsersTable = () => {
 
     setOpenModal(true);
   };
+
+  const userUpdate = (row, id)=>{
+    setModalInfo({
+      title: "Atualizar usuário",
+      content: <UpdateUserForm data={row} userId={id} />,
+  })}
 
   const header = [
     {
@@ -77,6 +84,22 @@ const UsersTable = () => {
           onClick={() => userDelete(row.username, row.id)}
         >
           <FaTrashAlt />
+        </Button>
+      ),
+    },
+    {
+      title: "Atualizar",
+      access: false,
+      alignment: "start",
+      cell: (row) => (
+        <Button
+          setWidth="30px"
+          setColor="white"
+          setHeight="30px"
+          setBackground="var(--yellow)"
+          onClick={() => userUpdate(row, row.id)}
+        >
+          <FaUserEdit />
         </Button>
       ),
     },

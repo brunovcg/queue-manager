@@ -2,8 +2,6 @@ import Styled from "./styles";
 import MenuCard from "../../../../components/MenuCard";
 import {
   FaUserEdit,
-  FaTrashAlt,
-  FaUser,
   FaUserLock,
   FaUndoAlt,
   FaPlusCircle,
@@ -11,32 +9,46 @@ import {
 import permissions from "../../../../configs/permissions";
 import { useAuth } from "../../../../providers/auth";
 import { useDashboard } from "../../../../providers/dashboard";
-import CreateUserForm from "./forms/createUser"
-import UsersTable from "./tables/usersTable"
-
+import CreateUserForm from "./forms/createUser";
+import ResetPasswordForm from "./forms/passwordReset";
+import ChangePasswordForm from "./forms/changePassword";
+import UsersTable from "./tables/usersTable";
 
 const Users = () => {
   const { userType } = useAuth();
   const { setModalInfo, setOpenModal } = useDashboard();
 
+  const createUser = () => {
+    setOpenModal(true);
+    setModalInfo({
+      title: "Adicionar Usuário",
+      content: <CreateUserForm />,
+    });
+  };
 
- const createUser = ()=>{
-     setOpenModal(true)
-     setModalInfo({
-        title: 'Adicionar Usuário',
-        content: <CreateUserForm/>,
-     })
- }
+  const updateUser = () => {
+    setOpenModal(true);
+    setModalInfo({
+      title: "Atualizar Usuários",
+      content: <UsersTable />,
+    });
+  };
 
- const updateUser = ()=>{
-  setOpenModal(true)
-  setModalInfo({
-    title: 'Atualizar Usuários',
-    content: <UsersTable/>,
- })
+  const passwordReset = () => {
+    setOpenModal(true);
+    setModalInfo({
+      title: "Resetar Senha",
+      content: <ResetPasswordForm />,
+    });
+  };
 
- }
-
+  const passwordChange = () => {
+    setOpenModal(true);
+    setModalInfo({
+      title: "Alterar Senha",
+      content: <ChangePasswordForm />,
+    });
+  };
 
   const userActions = [
     {
@@ -58,7 +70,7 @@ const Users = () => {
     {
       title: "Resetar Senha",
       icon: <FaUndoAlt />,
-      onClick: () => {},
+      onClick: () => passwordReset(),
       user: permissions.users.submenus.resetPassword.user,
       staff: permissions.users.submenus.resetPassword.staff,
       superuser: permissions.users.submenus.resetPassword.superuser,
@@ -66,7 +78,7 @@ const Users = () => {
     {
       title: "Alterar Senha",
       icon: <FaUserLock />,
-      onClick: () => {},
+      onClick: () => passwordChange(),
       user: permissions.users.submenus.changePassword.user,
       staff: permissions.users.submenus.changePassword.staff,
       superuser: permissions.users.submenus.changePassword.superuser,
@@ -87,7 +99,7 @@ const Users = () => {
             )
             .map((item, index) => (
               <MenuCard
-                background="var(--dark-grey)"
+                background="var(--real-green)"
                 key={index}
                 title={item.title}
                 icon={item.icon}

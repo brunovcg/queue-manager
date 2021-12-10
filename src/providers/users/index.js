@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect, useLayoutEffect } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { useAuth } from "../auth";
@@ -8,8 +8,8 @@ const UserContext = createContext([]);
 
 export const UserProvider = ({ children }) => {
   const [allUsers, setAllUsers] = useState([]);
-  const { configs, userType, token } = useAuth();
-  const { setOpenModal } = useDashboard();
+  const { configs, userType } = useAuth();
+  const { setOpenModal, dashboard } = useDashboard();
 
   const deleteUser = (id, header) => {
     api()
@@ -31,20 +31,63 @@ export const UserProvider = ({ children }) => {
       });
   };
 
-  useEffect(()  => {
-    
+  const resetPassword = (data) => {
+    let username = data["username"];
+    delete data["username"];
+    api()
+      .patch("reset-password/", data, configs)
+      .then((_) => {
+        toast.success(`Senha alterada para ${username} !`);
+        setOpenModal(false);
+      })
+      .catch((e) => {
+        toast.error("Algo deu errado!");
+      });
+  };
 
+  const changePassword = (id, data) => {
+    let username = data["username"];
+    delete data["username"];
+    api()
+      .patch(`change-password/${id}/`, data, configs)
+      .then((_) => {
+        toast.success(`Senha alterada para ${username} !`);
+        setOpenModal(false);
+      })
+      .catch((e) => {
+        toast.error(
+          e.response.status === 401
+            ? "Sua senha antiga está errada"
+            : "Houve um erro na criação, tente novamente"
+        );
+      });
+  };
+
+  const updateUser = (id, data) => {
+    api()
+      .patch(`users/${id}/`, data, configs)
+      .then((_) => {
+        toast.success(`Usuário Aterado !`);
+        setOpenModal(false);
+        getAllUsers();
+      })
+      .catch((e) => {
+        toast.error("Houve um erro na atualização, tente novamente");
+      });
+  };
+
+  useEffect(() => {
+    if (userType === "superuser") {
       getAllUsers();
- 
-    
-  }, [token]);
+    }
+    /* eslint-disable-next-line */
+  }, [dashboard]);
 
   const createUser = (data) => {
     api()
       .post("signup/", data, configs)
       .then((_) => {
         toast.success("Usuário Criado!");
-        console.log(data);
         getAllUsers();
         setOpenModal(false);
       })
@@ -64,6 +107,9 @@ export const UserProvider = ({ children }) => {
         getAllUsers,
         allUsers,
         deleteUser,
+        resetPassword,
+        changePassword,
+        updateUser,
       }}
     >
       {children}
