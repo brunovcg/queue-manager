@@ -7,8 +7,8 @@ import { useWindowSize } from "../../providers/windowSize";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
 import { useEffect } from "react";
-import { api } from "../../services/api";
-import { toast } from "react-toastify";
+// import { api } from "../../services/api";
+// import { toast } from "react-toastify";
 import {useHistory} from 'react-router-dom'
 import mobileBreakpoint from "../../configs/mobileBreakpoint";
 

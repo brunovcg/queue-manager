@@ -1,12 +1,12 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
 const AuthContext = createContext([]);
 
 export const AuthProvider = ({ children }) => {
-  const history =useHistory()
+  const history = useHistory();
   const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("@gokitchen:token")) || ""
   );
@@ -19,9 +19,13 @@ export const AuthProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("@gokitchen:user_type")) || ""
   );
 
+  const [username, setUsername] = useState(
+    JSON.parse(localStorage.getItem("@gokitchen:username")) || ""
+  );
+
   const logout = () => {
     localStorage.clear();
-    history.go("/")
+    history.go("/");
   };
 
   const [configs, setConfigs] = useState({
@@ -52,6 +56,7 @@ export const AuthProvider = ({ children }) => {
         setUserType(response.data.user_type);
         setUserId(response.data.user_id);
         setToken(response.data.token);
+        setUsername(response.data.username);
         toast.success("Bem vindo!");
         return true;
       })
@@ -73,6 +78,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         token,
         userId,
+        username,
         userType,
         setUserType,
         getLogin,

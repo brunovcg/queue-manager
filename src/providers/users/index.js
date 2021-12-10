@@ -23,8 +23,8 @@ export const UserProvider = ({ children }) => {
       .catch((_) => toast.error("Algo deu errado, tente novamente!"));
   };
 
-  const getAllUsers = () => {
-    api()
+  const getAllUsers = async () => {
+    await api()
       .get("users/", configs)
       .then((response) => {
         setAllUsers(response.data);

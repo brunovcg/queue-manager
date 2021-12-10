@@ -3,7 +3,7 @@ import styled from "styled-components"
 const Styled = styled.div`
 
 main{
-min-height:70vh;
+min-height:60vh;
     
 }
 
