@@ -53,13 +53,20 @@ export const Styled = styled.main`
       height: 70%;
       width: 100%;
       justify-content: start;
-      padding-top: 30px;
+      padding-top: 20px;
     }
     h1 {
       text-align: center;
       margin: 0 10px 25px 10px;
       font-size: 29px;
       color: var(--gk-green);
+    }
+
+    p{
+      margin: 0 90px;
+      font-size: 12px;
+      text-align: center;
+      color: var(--grey);
     }
 
     h2 {
@@ -70,7 +77,7 @@ export const Styled = styled.main`
       display: flex;
       justify-content: center;
       margin-top: 15px;
-      color: var(--grey);
+      color: var(--dark-grey);
       width: 70%;
       font-size: 16px;
       @media (max-width: 500px) {

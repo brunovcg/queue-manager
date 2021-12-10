@@ -50,7 +50,7 @@ const UpdateUserForm = ({ data, userId }) => {
       <p
         style={{ marginLeft: "30px", color: "var(--red)", fontWeight: "bold" }}
       >
-        Altere os camos necessários
+        Altere os campos necessários
       </p>
       <HookForm schema={schema} fields={fields} action={action} />{" "}
     </>

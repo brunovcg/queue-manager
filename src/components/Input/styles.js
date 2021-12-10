@@ -20,7 +20,7 @@ input, select{
 
         @media (max-width: ${`${mobileBreakpoint.width}px`}) {
           margin-top: 15px;
-          font-size: 18px;
+          font-size: 16px;
           height: 30px;
           width: 100%;
         }

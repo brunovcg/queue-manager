@@ -24,7 +24,6 @@ export const PopUpModal = ({ setModal, title, content, buttons }) => {
         <Modal.Body>{content}</Modal.Body>
         <Modal.Footer>
           {buttons}
-          <Button key="apagar" setBackground="var(--red)" setColor="white" onClick={handleClose}>Cancelar</Button>
         </Modal.Footer>
       </Modal>
     </Styled>

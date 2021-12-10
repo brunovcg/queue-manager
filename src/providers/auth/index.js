@@ -61,8 +61,11 @@ export const AuthProvider = ({ children }) => {
         return true;
       })
       .catch((res) => {
-        toast.error("E-mail e/ou senha não conferem!");
 
+        if (res.request.status === 0) { 
+          return toast.error("Erro de conexão ao servidor.");
+        }
+        toast.error("E-mail e/ou senha não conferem!");
         return false;
       });
   };

@@ -31,6 +31,16 @@ export const UserProvider = ({ children }) => {
       });
   };
 
+  const getSimpleUserList = () => {
+    let list = [];
+
+    allUsers
+      .filter((item) => item.is_staff === false)
+      .map((us) => list.push({ username: us.username, id: us.id }));
+
+    return list;
+  };
+
   const resetPassword = (data) => {
     let username = data["username"];
     delete data["username"];
@@ -110,6 +120,7 @@ export const UserProvider = ({ children }) => {
         resetPassword,
         changePassword,
         updateUser,
+        getSimpleUserList,
       }}
     >
       {children}

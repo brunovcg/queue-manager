@@ -3,6 +3,7 @@ import { ClientProvider } from "./clients";
 import { AuthProvider } from "./auth";
 import { DashboardProvider } from "./dashboard";
 import { UserProvider } from "./users";
+import {KitchenProvider} from "./kitchens"
 
 const providers = ({ children }) => {
   return (
@@ -10,7 +11,9 @@ const providers = ({ children }) => {
       <AuthProvider>
         <DashboardProvider>
           <UserProvider>
+            <KitchenProvider>
             <ClientProvider>{children}</ClientProvider>
+            </KitchenProvider>
           </UserProvider>
         </DashboardProvider>
       </AuthProvider>
