@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import mobileBreakpoint from "../../configs/mobileBreakpoint"
 
 export const Container = styled.div`
   background: var(--grey);
@@ -11,7 +12,7 @@ export const Container = styled.div`
   align-items: center;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
 
-  @media (max-width: 500px) {
+  @media (max-width: ${`${mobileBreakpoint.width}px`}) {
     flex-direction: row;
     flex-wrap: wrap;
     width: 38%;
@@ -24,7 +25,7 @@ export const Container = styled.div`
     height: 50%;
     font-size: 4.5vw;
 
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       font-size: 9vw;
     }
   }

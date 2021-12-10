@@ -1,14 +1,15 @@
 import styled from "styled-components";
+import mobileBreakpoint from "../../configs/mobileBreakpoint"
 
-export const Container = styled.main`
-  background: var(--light-grey);
+export const Styled = styled.main`
+  background: var(--gk-green);
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
 
-  @media (max-width: 500px) {
+  @media (max-width: ${`${mobileBreakpoint.width}px`}) {
     flex-direction: column;
   }
 
@@ -22,12 +23,13 @@ export const Container = styled.main`
     width: 30%;
     height: 90%;
     border: 2px solid var(--grey);
+    background: var(--light-grey);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       width: 100%;
       height: 90vh;
     }
@@ -42,6 +44,7 @@ export const Container = styled.main`
       display: flex;
       align-items: center;
       color: var(--dark-grey);
+      font-size: 25px;
     }
 
     .inputBox {
@@ -106,6 +109,7 @@ export const Container = styled.main`
     width: 65%;
     height: 90%;
     border: 2px solid var(--grey);
+    background: var(--light-grey);
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -121,7 +125,7 @@ export const Container = styled.main`
       flex-wrap: wrap;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       width: 100%;
       height: 90vh;
       justify-content: center;

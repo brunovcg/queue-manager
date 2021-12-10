@@ -1,11 +1,12 @@
 import Styled from "./styles"
-const User = () => {
 
+
+const Kitchens = () => {
 
     return(
         <Styled>
-            USER
+            Kitchens
         </Styled>
     )
 }
-export default User
+export default Kitchens

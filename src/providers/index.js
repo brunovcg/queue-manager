@@ -1,14 +1,19 @@
 import { WindowSizeProvider } from "./windowSize";
 import { ClientProvider } from "./clients";
 import { AuthProvider } from "./auth";
-
+import { DashboardProvider } from "./dashboard";
+import { UserProvider } from "./users";
 
 const providers = ({ children }) => {
   return (
     <WindowSizeProvider>
-        <AuthProvider>
-          <ClientProvider>{children}</ClientProvider>
-        </AuthProvider>
+      <AuthProvider>
+        <DashboardProvider>
+          <UserProvider>
+            <ClientProvider>{children}</ClientProvider>
+          </UserProvider>
+        </DashboardProvider>
+      </AuthProvider>
     </WindowSizeProvider>
   );
 };

@@ -1,17 +1,20 @@
 import { Container, MobileContainer } from "./styles";
 import gokitchen from "../../assets/gokitchen.png";
 import clients from "../../utils/clientList";
-import { ClientCard } from "../../components/ClientCard";
+// import { ClientCard } from "../../components/ClientCard";
 import { useWindowSize } from "../../providers/windowSize";
 import { useState, useEffect } from "react";
-import { useClient } from "../../providers/clients";
+// import { useClient } from "../../providers/clients";
 import Button from "../../components/Button";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
+import {useHistory} from "react-router-dom"
+import mobileBreakpoint from "../../configs/mobileBreakpoint";
 
 export const Display = () => {
+  const history = useHistory()
   const { width } = useWindowSize();
-  const { groupCalls, getGroupCalls } = useClient();
+  // const { groupCalls, getGroupCalls } = useClient();
   const { logout, token } = useAuth();
   const [selectInfo, setSelectInfo] = useState("");
   const [timer, setTimer] = useState(20);
@@ -23,9 +26,9 @@ export const Display = () => {
   };
 
   useEffect(() => {
-    getGroupCalls();
+    // getGroupCalls();
     const interval = setInterval(() => {
-      getGroupCalls();
+      // getGroupCalls();
       setTimer(20);
     }, 20000);
     return () => clearInterval(interval);
@@ -44,7 +47,7 @@ export const Display = () => {
 
   return (
     <>
-      {width > "500" && (
+      {width > mobileBreakpoint.width && (
         <Container>
           <header>
             <p>
@@ -56,7 +59,7 @@ export const Display = () => {
               <div>{timer}s</div>
             </div>
 
-            <Button setClick={() => logout()}>
+            <Button onClick={() => history.push("/dashboard")}>
               <figure>
                 <img src={gokitchen} alt="gk-logo" />
               </figure>
@@ -64,7 +67,7 @@ export const Display = () => {
           </header>
 
           <main>
-            {clients.map((item) => (
+            {/* {clients.map((item) => (
               <ClientCard
                 key={item.kitchen}
                 kitchen={item.kitchen}
@@ -73,12 +76,12 @@ export const Display = () => {
                 alternative={item.alt}
                 calls={groupCalls[item.kitchen - 1]}
               />
-            ))}
+            ))} */}
           </main>
         </Container>
       )}
 
-      {width < 500 && (
+      {width < mobileBreakpoint.width && (
         <MobileContainer>
           <div className="selectBox">
           <Button
@@ -99,7 +102,7 @@ export const Display = () => {
             </select>
           </div>
           <div className="callBox">
-            {clients
+            {/* {clients
               .filter((item) => item.client === selectInfo)
               .map((item) => (
                 <ClientCard
@@ -110,7 +113,7 @@ export const Display = () => {
                   alternative={`CZ - ${item.kitchen}`}
                   calls={groupCalls[item.kitchen - 1]}
                 />
-              ))}
+              ))} */}
           </div>
         </MobileContainer>
       )}

@@ -6,9 +6,7 @@ import {useHistory} from "react-router-dom"
 const AuthContext = createContext([]);
 
 export const AuthProvider = ({ children }) => {
-
-  const history = useHistory()
-
+  const history =useHistory()
   const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("@gokitchen:token")) || ""
   );
@@ -21,14 +19,26 @@ export const AuthProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("@gokitchen:user_type")) || ""
   );
 
-  const logout = ()=> {
-    localStorage.clear()
-    
+  const logout = () => {
+    localStorage.clear();
     history.go("/")
-   
-  }
+  };
 
-  const getToken = (data) => {
+  const [configs, setConfigs] = useState({
+    headers: {
+      Authorization: "Token " + token,
+    },
+  });
+
+  useEffect(() => {
+    setConfigs({
+      headers: {
+        Authorization: "Token " + token,
+      },
+    });
+  }, [token]);
+
+  const getLogin = (data) => {
     api()
       .post("login/", data)
       .then((response) => {
@@ -36,13 +46,13 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem(
             `@gokitchen:${Object.keys(response.data)[i]}`,
             JSON.stringify(response.data[Object.keys(response.data)[i]])
-            );
+          );
         }
 
         setUserType(response.data.user_type);
         setUserId(response.data.user_id);
         setToken(response.data.token);
-
+        toast.success("Bem vindo!");
         return true;
       })
       .catch((res) => {
@@ -65,8 +75,9 @@ export const AuthProvider = ({ children }) => {
         userId,
         userType,
         setUserType,
-        getToken,
-        logout
+        getLogin,
+        logout,
+        configs,
       }}
     >
       {children}

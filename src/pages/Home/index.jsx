@@ -6,9 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import {  Redirect } from "react-router-dom";
 import { useAuth } from "../../providers/auth";
+import Input from "../../components/Input"
 
 export const Home = () => {
-  const { getToken, token} = useAuth();
+  const { getLogin, token} = useAuth();
 
   const schema = yup.object().shape({
     username: yup.string().required("Usuário Necessário"),
@@ -29,7 +30,7 @@ export const Home = () => {
       username,
       password,
     };
-    let checkLogin = getToken(data);
+    let checkLogin = getLogin(data);
 
     if (checkLogin) {
       reset();
@@ -52,19 +53,21 @@ export const Home = () => {
         <h2>Acesse sua conta</h2>
         <h3>Escolha seu usuário e digite sua senha</h3>
         <div className="inputBox">
-          <input
+          <Input
             placeholder="Digite seu usuário"
             type="text"
-            {...register("username")}
+            name="username"
+            register={register}
+            error={errors.username?.message}
           />
-
-          <div className="error">{errors.username?.message}</div>
-          <input
+       
+          <Input
             type="password"
             placeholder="Digite sua senha"
-            {...register("password")}
+            name="password"
+            register={register}
+            error={errors.password?.message}
           />
-          <div className="error">{errors.password?.message}</div>
         </div>
         <div className="buttonBox">
           <Button

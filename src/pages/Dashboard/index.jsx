@@ -1,36 +1,33 @@
 import Styled from "./styles";
-import Superuser from "./superuser";
-import User from "./user";
-import Staff from "./staff";
-import Header from "../../components/Header"
+import Header from "../../components/Header";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router-dom";
+import { useDashboard } from "../../providers/dashboard";
+import {PopUpModal} from "../../components/Modal"
+
 
 export const Dashboard = () => {
+  const {token} = useAuth();
+  const { dashboard, openModal, modalInfo, setOpenModal} = useDashboard();
 
-  const { userType, token } = useAuth();
 
   if (token === "") {
     return <Redirect to="/" />;
   }
 
- const menu = null
-
-
   return (
     <Styled>
-      <Header menu={menu}/>
+      <Header />
+      <main>{dashboard}</main>
 
-      <main>
-      {userType === "superuser" ? (
-        <Superuser />
-      ) : userType === "staff" ? (
-        <Staff />
-      ) : (
-        <User />
+      {openModal && (
+        <PopUpModal
+          title={modalInfo.title}
+          content={modalInfo.content}
+          setModal={setOpenModal}
+          buttons={modalInfo.buttons}
+        />
       )}
-      </main>
-
     </Styled>
   );
 };

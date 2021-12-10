@@ -3,8 +3,8 @@ import styled from "styled-components"
 const Styled = styled.div`
 
 main{
-
-    background: red;
+min-height:70vh;
+    
 }
 
 

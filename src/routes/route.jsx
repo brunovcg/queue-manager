@@ -2,7 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import { Home } from "../pages/Home";
 import {Dashboard} from "../pages/Dashboard"
 import { Display } from "../pages/Display";
-import { Kitchen } from "../pages/Kitchen";
+import {Chamador } from "../pages/Chamador";
 import { NotFound } from "../pages/Notfound";
 
 const AppRoutes = () => {
@@ -14,8 +14,8 @@ const AppRoutes = () => {
       <Route  path="/dashboard">
         <Dashboard />
         </Route>
-      <Route path="/kitchen">
-        <Kitchen />
+      <Route path="/chamador">
+        <Chamador/>
       </Route>
       <Route path="/display">
         <Display />

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import mobileBreakpoint from "../../configs/mobileBreakpoint"
 
 export const Section = styled.section`
   @media (max-width: 500px) {
@@ -19,7 +20,7 @@ export const Section = styled.section`
     align-items: center;
     margin-bottom: 10px;
 
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       height: 30%;
       margin-top: 30px;
     }
@@ -29,7 +30,7 @@ export const Section = styled.section`
       border: 2px solid var(--white);
       height: 80%;
 
-      @media (max-width: 500px) {
+      @media (max-width: ${`${mobileBreakpoint.width}px`}) {
         margin-top: 0;
     }
     }
@@ -41,7 +42,7 @@ export const Section = styled.section`
     font-size: 1.75vw;
     font-weight: bold;
     color: var(--red);
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       font-size: 12vw;
       margin-top: 10px;
       width: 80%;
@@ -53,7 +54,7 @@ export const Section = styled.section`
     font-size: 1vw;
     font-weight: bold;
     margin-bottom: 15px;
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       font-size: 8vw;
       width: 80%;
     }
@@ -64,7 +65,7 @@ export const Section = styled.section`
     flex-direction: column-reverse;
     justify-content: flex-start;
     align-items: center;
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       width: 80%;
     }
 
@@ -75,7 +76,7 @@ export const Section = styled.section`
       border-top: 2px solid var(--light-grey);
       font-size: 2.4vw;
       text-align: center;
-      @media (max-width: 500px) {
+      @media (max-width: ${`${mobileBreakpoint.width}px`}) {
         font-size: 14vw;
       }
     }

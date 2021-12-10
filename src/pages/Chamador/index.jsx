@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Styled } from "./styles";
 import Button from "../../components/Button";
 import { CallCard } from "../../components/CallCard";
 import { useState } from "react";
@@ -9,8 +9,11 @@ import { Redirect } from "react-router";
 import { useEffect } from "react";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
+import {useHistory} from 'react-router-dom'
+import mobileBreakpoint from "../../configs/mobileBreakpoint";
 
-export const Kitchen = () => {
+export const Chamador = () => {
+  const history = useHistory()
   const { width } = useWindowSize();
   const { logout, token, userId } = useAuth();
   const user = userId
@@ -58,29 +61,29 @@ export const Kitchen = () => {
   ];
 
   const getCalls = () => {
-    api.get(`/info/${user}`).then((res) => {
-      setClientCalls(res.data.calls);
-    });
+    // api.get(`/info/${user}`).then((res) => {
+    //   setClientCalls(res.data.calls);
+    // });
   };
 
   const patchCall = (data) => {
-    if (inputInfo !== "") {
-      api
-        .patch(`/info/${user}`, { calls: [...clientCalls, data] })
-        .then((_) => {
-          width < "500" && toast.info(`Senha ${inputInfo} adicionada`);
-          setInputInfo("");
-          getCalls();
-        });
-    } else {toast.error("Precisa digitar a senha")}
+    // if (inputInfo !== "") {
+    //   api
+    //     .patch(`/info/${user}`, { calls: [...clientCalls, data] })
+    //     .then((_) => {
+    //       width < "500" && toast.info(`Senha ${inputInfo} adicionada`);
+    //       setInputInfo("");
+    //       getCalls();
+    //     });
+    // } else {toast.error("Precisa digitar a senha")}
   };
 
   const deleteCall = (callId) => {
     const newCalls = clientCalls.filter((item) => item !== callId);
 
-    api.patch(`/info/${user}`, { calls: newCalls }).then((_) => {
-      getCalls();
-    });
+    // api.patch(`/info/${user}`, { calls: newCalls }).then((_) => {
+    //   getCalls();
+    // });
   };
 
   useEffect(() => {
@@ -92,15 +95,15 @@ export const Kitchen = () => {
   }
 
   return (
-    <Container>
-      {width < "500" && (
+    <Styled>
+      {width < mobileBreakpoint.width && (
         <div className="changeWindow">
           <Button
             setBackground="var(--dark-grey)"
             setColor="var(--white)"
             setWidth="200px"
             setHeight="40px"
-            setClick={handleMobile}
+            onClick={handleMobile}
           >
             {inputMobile ? "Mudar para senhas" : "Mudar para teclado"}
           </Button>
@@ -109,7 +112,7 @@ export const Kitchen = () => {
 
       <section
         className={
-          width > "500"
+          width > mobileBreakpoint.width
             ? "inputContainer"
             : width < "500" && inputMobile
             ? "inputContainer"
@@ -135,7 +138,7 @@ export const Kitchen = () => {
                 setWidth="60px"
                 setFont="2rem"
                 setBackground={item.color}
-                setClick={item.click}
+                onClick={item.click}
                 key={index}
               >
                 {item.title}
@@ -147,16 +150,16 @@ export const Kitchen = () => {
             <div className="logout">
               <Button
                 setBackground="var(--red)"
-                setClick={() => logout()}
+                onClick={() => history.push("/dashboard")}
                 setColor="var(--white)"
               >
-                Logout
+                Voltar
               </Button>
             </div>
             <div className="call">
               <Button
                 setBackground="var(--green)"
-                setClick={() => patchCall(inputInfo)}
+                onClick={() => patchCall(inputInfo)}
               >
                 Chamar
               </Button>
@@ -166,9 +169,9 @@ export const Kitchen = () => {
       </section>
       <section
         className={
-          width > "500"
+          width > mobileBreakpoint.width
             ? "cardContainer"
-            : width < "500" && !inputMobile
+            : width < mobileBreakpoint.width && !inputMobile
             ? "cardContainer"
             : "hidden"
         }
@@ -180,6 +183,6 @@ export const Kitchen = () => {
             ))}
         </div>
       </section>
-    </Container>
+    </Styled>
   );
 };

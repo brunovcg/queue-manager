@@ -1,11 +1,13 @@
 import Styled from "./styles"
-const Staff = () => {
 
+
+
+const Info = () => {
 
     return(
         <Styled>
-            STAFF
+            Info
         </Styled>
     )
 }
-export default Staff
+export default Info
