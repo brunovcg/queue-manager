@@ -1,6 +1,5 @@
 import Styled from "./styles";
 import { Modal } from "react-bootstrap";
-import Button from "../Button";
 
 export const PopUpModal = ({ setModal, title, content, buttons }) => {
   const handleClose = () => {

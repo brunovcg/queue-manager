@@ -17,11 +17,9 @@ export const KitchenProvider = ({ children }) => {
       .get("kitchens/", configs)
       .then((response) => {
         setKitchens(response.data);
-        console.log(response.data);
       });
   };
 
-  // tEM QUE VER NO BACK UM JEITO DE DEIXAR USER OPICIONAL!!!!
 
   const createKitchen = (data) => {
     api()

@@ -1,11 +1,11 @@
 import Styled from "./styles";
 
-const Input = ({
+const InputNotRegister
+= ({
   type,
   placeholder,
   datalist,
   error,
-  register,
   name,
   ...rest
 }) => {
@@ -15,13 +15,11 @@ const Input = ({
         <input
           type={type}
           placeholder={placeholder}
-          {...register(name)}
           {...rest}
         />
       )}
       {datalist && (
         <select
-          {...register(name)}
           {...rest}
           id={placeholder}
           defaultValue={placeholder}
@@ -37,4 +35,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default InputNotRegister;
