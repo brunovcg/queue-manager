@@ -20,7 +20,6 @@ export const KitchenProvider = ({ children }) => {
       });
   };
 
-
   const createKitchen = (data) => {
     api()
       .post("kitchens/", data, configs)
@@ -37,8 +36,25 @@ export const KitchenProvider = ({ children }) => {
       });
   };
 
+  const updateKitchen = (data) => {
+    api()
+      .patch("kitchens/", data, configs)
+      .then((_) => {
+        toast.success("Cozinha atualizada!");
+        getAllKitchens();
+      })
+      .catch((e) => {
+        toast.error(
+          e.response.status === 409
+            ? "Cozinha já existe"
+            : "Houve um erro na atualização, tente novamente"
+        );
+      });
+  };
+
   useEffect(() => {
     getAllKitchens();
+    /* eslint-disable-next-line*/
   }, [dashboard]);
 
   return (
@@ -47,6 +63,7 @@ export const KitchenProvider = ({ children }) => {
         getAllKitchens,
         kitchens,
         createKitchen,
+        updateKitchen,
       }}
     >
       {children}

@@ -3,28 +3,16 @@ import InputNotRegister from "../../../../../components/Input/notRegister";
 import Button from "../../../../../components/Button";
 import { useState } from "react";
 
-const CreateKitchenForm = () => {
-  const [branch, setBranch] = useState("");
-  const [code, setCode] = useState("");
+const UpdateKitchenForm = () => {
+  const [branch, setBranch] = useState();
+  const [code, setCode] = useState();
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
   const [label, setLabel] = useState();
-  const { createKitchen } = useKitchen();
-  const [errors, setErrors] = useState({});
+  const { updateKitchen } = useKitchen();
 
+  
   const handleSubmit = () => {
-    if (code === "") {
-      setErrors({...errors, code: "O campo code é necessário" });
-    }
-
-    if (branch === "") {
-      setErrors({...errors, branch: "O campo branch é necessário" });
-    }
-
-    if (branch === "" || code === "") {
-      return;
-    }
-
     const data = new FormData();
     data.append("code", code);
     data.append("branch", branch);
@@ -32,22 +20,20 @@ const CreateKitchenForm = () => {
     data.append("username", username);
     data.append("label", label);
 
-    createKitchen(data);
+    updateKitchen(data);
   };
-
-  // tem que colocar o para limpar o estado de erro se escrever
 
   const fields = [
     {
       name: "code",
-      error: errors.code,
+      error: "",
       type: "text",
       placeholder: "Código",
       onChange: (evt) => setCode(evt.target.value),
     },
     {
       name: "branch",
-      error: errors.branch,
+      error: "",
       type: "text",
       placeholder: "Filial",
       onChange: (evt) => setBranch(Number(evt.target.value)),
@@ -105,4 +91,4 @@ const CreateKitchenForm = () => {
   );
 };
 
-export default CreateKitchenForm;
+export default UpdateKitchenForm;
