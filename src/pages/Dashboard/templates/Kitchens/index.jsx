@@ -5,6 +5,7 @@ import MenuCard from "../../../../components/MenuCard";
 import { useAuth } from "../../../../providers/auth";
 import { useDashboard } from "../../../../providers/dashboard";
 import CreateKitchenForm from "../Kitchens/forms/createKitchen"
+import UpdateKitchenForm from "../Kitchens/forms/updateKitchen"
 
 const Kitchens = () => {
   const { userType } = useAuth();
@@ -25,7 +26,7 @@ const Kitchens = () => {
     setOpenModal(true);
     setModalInfo({
       title: "Atualizar Cozinhas",
-      content: <p/>,
+      content: <UpdateKitchenForm/>,
     });
   };
 

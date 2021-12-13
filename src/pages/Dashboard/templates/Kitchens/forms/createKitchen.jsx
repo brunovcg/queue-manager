@@ -13,15 +13,22 @@ const CreateKitchenForm = () => {
   const [errors, setErrors] = useState({});
 
   const handleSubmit = () => {
-    if (code === "") {
-      setErrors({...errors, code: "O campo code é necessário" });
+    if (code === "" && branch === "") {
+      setErrors({
+        ...errors,
+        code: "O campo code é necessário",
+        branch: "O campo branch é necessário",
+      });
+      return;
     }
 
-    if (branch === "") {
-      setErrors({...errors, branch: "O campo branch é necessário" });
+    if (code === "" && branch !== "") {
+      setErrors({ ...errors, branch: "", code: "O campo code é necessário" });
+      return;
     }
 
-    if (branch === "" || code === "") {
+    if (branch === "" || code !== "") {
+      setErrors({ ...errors, branch: "O campo branch é necessário", code: "" });
       return;
     }
 
@@ -34,8 +41,6 @@ const CreateKitchenForm = () => {
 
     createKitchen(data);
   };
-
-  // tem que colocar o para limpar o estado de erro se escrever
 
   const fields = [
     {

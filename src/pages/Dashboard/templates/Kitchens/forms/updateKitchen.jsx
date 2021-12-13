@@ -1,39 +1,61 @@
 import { useKitchen } from "../../../../../providers/kitchens";
 import InputNotRegister from "../../../../../components/Input/notRegister";
+import { formdataArrayValues } from "../../../../../utils/formDataFunctions";
 import Button from "../../../../../components/Button";
 import { useState } from "react";
 
 const UpdateKitchenForm = () => {
-  const [branch, setBranch] = useState();
-  const [code, setCode] = useState();
+  const [branch, setBranch] = useState("");
+  const [code, setCode] = useState("");
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
   const [label, setLabel] = useState();
   const { updateKitchen } = useKitchen();
+  const [errors, setErrors] = useState({});
 
-  
   const handleSubmit = () => {
     const data = new FormData();
-    data.append("code", code);
-    data.append("branch", branch);
-    data.append("image", image);
-    data.append("username", username);
-    data.append("label", label);
 
-    updateKitchen(data);
+    if (code && code !== "") {
+      data.append("code", code);
+    }
+
+    if (branch && branch !== "") {
+      data.append("branch", branch);
+    }
+
+    if (image && image !== "") {
+      data.append("image", image);
+    }
+
+    if (username && username !== "") {
+      data.append("username", username);
+    }
+
+    if (label && label !== "") {
+      data.append("label", label);
+    }
+
+    if (formdataArrayValues(data)) {
+      return;
+    }
+
+    //  TEM QUE VER COMO ATUALIZAR O ID DA COZINHA, PELO INSOMIA TEM QUE ENVIAR O ID DA COZINHA TALVEz SEJA MELHOR FAZER A TABELA E SO DAI ATUALIZAR!!!
+
+    updateKitchen("ID da cozinha", data);
   };
 
   const fields = [
     {
       name: "code",
-      error: "",
+      error: errors.code,
       type: "text",
       placeholder: "Código",
       onChange: (evt) => setCode(evt.target.value),
     },
     {
       name: "branch",
-      error: "",
+      error: errors.branch,
       type: "text",
       placeholder: "Filial",
       onChange: (evt) => setBranch(Number(evt.target.value)),

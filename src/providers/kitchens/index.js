@@ -36,9 +36,9 @@ export const KitchenProvider = ({ children }) => {
       });
   };
 
-  const updateKitchen = (data) => {
+  const updateKitchen = (id,data) => {
     api()
-      .patch("kitchens/", data, configs)
+      .patch( `kitchens/${id}/`, data, configs)
       .then((_) => {
         toast.success("Cozinha atualizada!");
         getAllKitchens();
