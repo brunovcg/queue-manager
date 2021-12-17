@@ -2,7 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import { Home } from "../pages/Home";
 import {Dashboard} from "../pages/Dashboard"
 import { Display } from "../pages/Display";
-import {Chamador } from "../pages/Chamador";
+import {Caller } from "../pages/Caller";
 import { NotFound } from "../pages/Notfound";
 
 const AppRoutes = () => {
@@ -14,8 +14,8 @@ const AppRoutes = () => {
       <Route  path="/dashboard">
         <Dashboard />
         </Route>
-      <Route path="/chamador">
-        <Chamador/>
+      <Route path="/caller/:kitchen_id">
+        <Caller/>
       </Route>
       <Route path="/display">
         <Display />

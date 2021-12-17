@@ -2,7 +2,9 @@ import styled from "styled-components";
 import mobileBreakpoint from "../../configs/mobileBreakpoint"
 
 export const Section = styled.section`
-  @media (max-width: 500px) {
+  margin: 0 15px;
+
+  @media (max-width: ${`${mobileBreakpoint.width}px`}) {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,6 +12,7 @@ export const Section = styled.section`
     width: 100vw;
     min-height: 100%;
     padding-top: 25px;
+    
   }
 
   figure {
@@ -21,7 +24,7 @@ export const Section = styled.section`
     margin-bottom: 10px;
 
     @media (max-width: ${`${mobileBreakpoint.width}px`}) {
-      height: 30%;
+
       margin-top: 30px;
     }
 
@@ -32,6 +35,8 @@ export const Section = styled.section`
 
       @media (max-width: ${`${mobileBreakpoint.width}px`}) {
         margin-top: 0;
+        width: 80%;
+        
     }
     }
   }
@@ -69,12 +74,13 @@ export const Section = styled.section`
       width: 80%;
     }
 
-    p {
+    .number {
       margin-top: 10px;
+      margin-bottom: 0px;
       padding-top: 10px;
       width: 90%;
       border-top: 2px solid var(--light-grey);
-      font-size: 2.4vw;
+      font-size: 2vw;
       text-align: center;
       @media (max-width: ${`${mobileBreakpoint.width}px`}) {
         font-size: 14vw;

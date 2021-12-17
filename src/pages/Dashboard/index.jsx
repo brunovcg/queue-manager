@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router-dom";
 import { useDashboard } from "../../providers/dashboard";
-
+import {dateFunctions} from "../../utils/functions"
 import { PopUpModal } from "../../components/Modal";
 
 export const Dashboard = () => {
@@ -18,16 +18,20 @@ export const Dashboard = () => {
     <Styled>
       <Header />
 
-      <h1
+      <div 
         style={{
           color: "var(--dark-grey)",
           width: "100%",
           textAlign: "center",
           paddingTop: "20px",
+          display: "flex", justifyContent: "center"
         }}
       >
-        Usuário: <span style={{ color: "var(--gk-green)" }}>{username}</span>{" "}
-      </h1>
+      <p className="username">  Usuário: <span style={{ color: "var(--gk-green)", paddingRight: "10px" }}>{username}</span> </p> 
+      <p style={{paddingLeft: "10px", fontWeight: "bold"}}>{dateFunctions.stringToDateFormated(Date.now())}</p>
+
+      </div>
+      
 
       <main>{dashboard}</main>
 

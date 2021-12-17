@@ -1,38 +1,41 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const Styled = styled.main`
   background-color: var(--light-grey);
   height: 100vh;
-  width: 100vw;
 
   header {
-    height: 10%;
+    height: 15%;
     border-bottom: 2px solid var(--grey);
     display: flex;
+    background: var(--dark-grey);
 
-    p {
-      width: 70%;
+    .text {
+      width: 65%;
       height: 100%;
       display: flex;
       align-items: center;
       padding: 15px;
       font-size: 2vw;
+      color: white;
     }
 
     .countDown {
       width: 20%;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      padding: 15px;
+  
 
-      p {
-        font-size: 1.2vw;
+      .update-text {
+        width: 40%;
+        font-size: 1.3rem;
         font-weight: bold;
-        color: var(--red);
+        color: var(--light-red);
         text-align: center;
         display: flex;
         justify-content: center;
+        margin-bottom: 0;
       }
 
       @keyframes blink {
@@ -47,27 +50,28 @@ export const Container = styled.main`
         }
       }
 
-      div {
-        color: var(--red);
-        font-size: 3vw;
+      .timer {
+        text-align: end;
+        width: 60%;
+        color: var(--light-red);
+        margin-left: 10px;
+        font-size: 4rem;
         font-weight: bold;
         animation: blink 0.5s linear infinite;
       }
     }
 
-    button {
-      width: fit-content;
+    a {
+      width: 15%;
+      display: flex;
+      justify-content: center;
       figure {
-        width: 5vw;
-
+        height: 100%;
         display: flex;
         align-items: center;
-        position: absolute;
-        top: 5px;
-        right: 10px;
 
         img {
-          height: 8vh;
+          height: 80%;
           box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
         }
       }
@@ -77,8 +81,8 @@ export const Container = styled.main`
   main {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    height: 90%;
+    justify-content: flex-start;
+    height: 85%;
 
     section {
       width: 9%;
@@ -95,22 +99,35 @@ export const MobileContainer = styled.main`
   background-color: var(--light-grey);
 
   .selectBox {
+    width: 100%;
     min-height: 15%;
     height: fit-content;
     display: flex;
     align-items: center;
     justify-content: space-around;
 
+    a {
+      width: 30%;
+      display: flex;
+      justify-content: center;
+      figure {
+        width: 80%;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
     select {
       width: 60%;
       height: 70%;
       font-size: 8vw;
-
-  
+      margin-right: 5px
     }
   }
 
   .callBox {
+    
     background-color: var(--grey);
     min-height: 85%;
     display: flex;

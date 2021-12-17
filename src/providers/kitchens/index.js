@@ -8,9 +8,11 @@ const KitchenContext = createContext([]);
 
 export const KitchenProvider = ({ children }) => {
   const [kitchens, setKitchens] = useState([]);
+  const [userKitchens, setUserKitchens] = useState([]);
+  const [selectedKitchen, setSelectedKitchen] = useState({});
 
-  const { configs } = useAuth();
-  const { dashboard } = useDashboard();
+  const { configs, userType, token } = useAuth();
+  const { dashboard, setOpenModal } = useDashboard();
 
   const getAllKitchens = async () => {
     await api()
@@ -36,12 +38,29 @@ export const KitchenProvider = ({ children }) => {
       });
   };
 
-  const updateKitchen = (id,data) => {
+  const getOneKitchen = (kitchenId) => {
     api()
-      .patch( `kitchens/${id}/`, data, configs)
+      .get(`kitchens/${kitchenId}/`, configs)
+      .then((response) => {
+        setSelectedKitchen(response.data);
+      });
+  };
+
+  const getUserKitchens = (userId) => {
+    api()
+      .get(`users/${userId}/kitchens/`, configs)
+      .then((response) => {
+        setUserKitchens(response.data);
+      });
+  };
+
+  const updateKitchen = (id, data) => {
+    api()
+      .patch(`kitchens/${id}/`, data, configs)
       .then((_) => {
         toast.success("Cozinha atualizada!");
         getAllKitchens();
+        setOpenModal(false);
       })
       .catch((e) => {
         toast.error(
@@ -52,8 +71,23 @@ export const KitchenProvider = ({ children }) => {
       });
   };
 
+  const deleteKitchen = (id) => {
+    api()
+      .delete(`kitchens/${id}/`, configs)
+      .then((_) => {
+        toast.success("Cozinha Deletada!");
+        getAllKitchens();
+        setOpenModal(false);
+      })
+      .catch((e) => {
+        toast.error("Houve um erro ao deletar, tente novamente");
+      });
+  };
+
   useEffect(() => {
-    getAllKitchens();
+    if (userType !== "user" && token) {
+      getAllKitchens();
+    }
     /* eslint-disable-next-line*/
   }, [dashboard]);
 
@@ -64,6 +98,11 @@ export const KitchenProvider = ({ children }) => {
         kitchens,
         createKitchen,
         updateKitchen,
+        deleteKitchen,
+        getUserKitchens,
+        userKitchens,
+        getOneKitchen,
+        selectedKitchen,
       }}
     >
       {children}

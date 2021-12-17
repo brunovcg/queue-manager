@@ -1,37 +1,39 @@
-import { Container, MobileContainer } from "./styles";
+import { Styled, MobileContainer } from "./styles";
 import gokitchen from "../../assets/gokitchen.png";
-import clients from "../../utils/clientList";
-// import { ClientCard } from "../../components/ClientCard";
+import { ClientCard } from "../../components/ClientCard";
 import { useWindowSize } from "../../providers/windowSize";
 import { useState, useEffect } from "react";
-// import { useClient } from "../../providers/clients";
-import Button from "../../components/Button";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
-import {useHistory} from "react-router-dom"
+import { Link } from "react-router-dom";
 import mobileBreakpoint from "../../configs/mobileBreakpoint";
+import { useKitchen } from "../../providers/kitchens";
 
 export const Display = () => {
-  const history = useHistory()
   const { width } = useWindowSize();
-  // const { groupCalls, getGroupCalls } = useClient();
-  const { logout, token } = useAuth();
+  const { token } = useAuth();
   const [selectInfo, setSelectInfo] = useState("");
-  const [timer, setTimer] = useState(20);
+  const [timer, setTimer] = useState(30);
+
+  const { kitchens, getAllKitchens } = useKitchen();
 
   const handleTimer = () => {
     if (timer > 0) {
       setTimer(timer - 1);
     }
+    if (timer===0){
+      setTimer(30)
+    }
   };
 
   useEffect(() => {
-    // getGroupCalls();
+    getAllKitchens();
     const interval = setInterval(() => {
-      // getGroupCalls();
-      setTimer(20);
-    }, 20000);
+      getAllKitchens();
+      setTimer(30);
+    }, 30000);
     return () => clearInterval(interval);
+    /*eslint-disable-next-line*/
   }, [token]);
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export const Display = () => {
       handleTimer();
     }, 1000);
     return () => clearInterval(interval);
+    /*eslint-disable-next-line*/
   }, [timer]);
 
   if (token === "") {
@@ -48,72 +51,72 @@ export const Display = () => {
   return (
     <>
       {width > mobileBreakpoint.width && (
-        <Container>
+        <Styled>
           <header>
-            <p>
-              Entregador verifique pela lista do restaurante se o pedido já está
-              pronto. Caso esteja, peça autorização de entrada na portaria
+            <p className="text">
+              Entregador, verifique pelo restaurante se o pedido está
+              pronto. Caso esteja, peça autorização de entrada.
             </p>
             <div className="countDown">
-              <p>Atualiza em:</p>
-              <div>{timer}s</div>
+              <p className="update-text">Atualiza em:</p>
+              <div className="timer">{timer}<span style={{color: "white", fontSize: "15px"}}>seg</span></div>
             </div>
 
-            <Button onClick={() => history.push("/dashboard")}>
+            <Link to="/dashboard">
               <figure>
                 <img src={gokitchen} alt="gk-logo" />
               </figure>
-            </Button>
+            </Link>
           </header>
 
           <main>
-            {/* {clients.map((item) => (
+            {kitchens.map((item) => (
               <ClientCard
-                key={item.kitchen}
-                kitchen={item.kitchen}
-                client={item.client}
-                logo={item.logo}
-                alternative={item.alt}
-                calls={groupCalls[item.kitchen - 1]}
+                key={item.id}
+                kitchen={item.code}
+                client={item.label}
+                logo={item.image}
+                alt={`logo_${item.label}`}
+                calls={item.orders}
               />
-            ))} */}
+            ))}
           </main>
-        </Container>
+        </Styled>
       )}
 
       {width < mobileBreakpoint.width && (
         <MobileContainer>
           <div className="selectBox">
-          <Button
-            setBackground="var(--red)"
-            setColor="var(--white)"
-            setClick={()=>logout()}
-          >Logout</Button>
+            <Link to="/dashboard">
+              <figure>
+                <img src={gokitchen} alt="gk-logo" />
+              </figure>
+            </Link>
             <select
               name="clients"
               onChange={(evt) => setSelectInfo(evt.target.value)}
             >
               <option hidden>Escolha</option>
-              {clients.map((item, index) => (
-                <option key={index} value={item.client}>
-                  {item.client}
+              {kitchens.map((item, index) => (
+                <option key={index} value={item.label}>
+                  {item.label}
                 </option>
               ))}
             </select>
           </div>
           <div className="callBox">
-            {/* {clients
-              .filter((item) => item.client === selectInfo)
+            {kitchens
+              .filter((item) => item.label === selectInfo)
               .map((item) => (
                 <ClientCard
-                  key={item.kitchen}
-                  kitchen={item.kitchen}
-                  client={item.client}
-                  logo={item.logo}
-                  alternative={`CZ - ${item.kitchen}`}
-                  calls={groupCalls[item.kitchen - 1]}
+                key={item.id}
+                kitchen={item.code}
+                client={item.label}
+                logo={item.image}
+                alt={`logo_${item.label}`}
+                calls={item.orders}
                 />
-              ))} */}
+              ))}
           </div>
         </MobileContainer>
       )}

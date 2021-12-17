@@ -21,20 +21,50 @@ const CreateUserForm = () => {
   });
 
   const fields = [
-    { name: "username", type: "text", placeholder: "Digite o usuário" },
-    { name: "password", type: "password", placeholder: "Digite a senha" },
+    {
+      name: "username",
+      type: "text",
+      placeholder: "Digite o usuário",
+      width: "50%",
+      widthMobile: "100%",
+    },
+    {
+      name: "email",
+      type: "text",
+      placeholder: "Digite o e-mail",
+      width: "50%",
+      widthMobile: "100%",
+    },
+    {
+      name: "password",
+      type: "password",
+      placeholder: "Digite a senha",
+      width: "50%",
+      widthMobile: "100%",
+    },
     {
       name: "confirmPassword",
       type: "password",
       placeholder: "Confirme a senha",
+      width: "50%",
+      widthMobile: "100%",
     },
-    { name: "email", type: "text", placeholder: "Digite o e-mail" },
-    { name: "legal_id", type: "text", placeholder: "Digite o CPF/CNPJ" },
+
+    {
+      name: "legal_id",
+      type: "text",
+      placeholder: "Digite o CPF/CNPJ",
+      width: "50%",
+      widthMobile: "100%",
+    },
     {
       name: "userType",
+      label: "Escolha permissões do usuário:",
       type: "text",
       placeholder: "Selecione o tipo de Usuário",
       datalist: ["User", "Staff", "Superuser"],
+      width: "50%",
+      widthMobile: "100%",
     },
   ];
 

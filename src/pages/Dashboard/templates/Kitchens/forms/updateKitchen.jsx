@@ -1,83 +1,75 @@
 import { useKitchen } from "../../../../../providers/kitchens";
-import InputNotRegister from "../../../../../components/Input/notRegister";
-import { formdataArrayValues } from "../../../../../utils/formDataFunctions";
+import Input from "../../../../../components/Input/";
+import {dataFormFunctions}  from "../../../../../utils/functions"
 import Button from "../../../../../components/Button";
 import { useState } from "react";
 
-const UpdateKitchenForm = () => {
+const UpdateKitchenForm = ({ data, kitchenId }) => {
   const [branch, setBranch] = useState("");
   const [code, setCode] = useState("");
   const [image, setImage] = useState();
   const [username, setUsername] = useState();
   const [label, setLabel] = useState();
   const { updateKitchen } = useKitchen();
-  const [errors, setErrors] = useState({});
 
   const handleSubmit = () => {
-    const data = new FormData();
+    const formdata = new FormData();
 
     if (code && code !== "") {
-      data.append("code", code);
+      formdata.append("code", code);
     }
 
     if (branch && branch !== "") {
-      data.append("branch", branch);
+      formdata.append("branch", branch);
     }
 
     if (image && image !== "") {
-      data.append("image", image);
+      formdata.append("image", image);
     }
 
     if (username && username !== "") {
-      data.append("username", username);
+      formdata.append("username", username);
     }
 
     if (label && label !== "") {
-      data.append("label", label);
+      formdata.append("label", label);
     }
 
-    if (formdataArrayValues(data)) {
+    if (dataFormFunctions.valuesToArray(formdata).length < 1) {
       return;
     }
 
-    //  TEM QUE VER COMO ATUALIZAR O ID DA COZINHA, PELO INSOMIA TEM QUE ENVIAR O ID DA COZINHA TALVEz SEJA MELHOR FAZER A TABELA E SO DAI ATUALIZAR!!!
-
-    updateKitchen("ID da cozinha", data);
+    updateKitchen(kitchenId, formdata);
   };
 
   const fields = [
     {
       name: "code",
-      error: errors.code,
       type: "text",
-      placeholder: "Código",
+      placeholder: data.code,
       onChange: (evt) => setCode(evt.target.value),
     },
     {
       name: "branch",
-      error: errors.branch,
       type: "text",
-      placeholder: "Filial",
+      placeholder: data.branch?.name,
       onChange: (evt) => setBranch(Number(evt.target.value)),
     },
     {
       name: "imagem",
-      error: "",
       type: "file",
       onChange: (evt) => setImage(evt.target.files[0]),
     },
     {
       name: "username",
-      error: "",
       type: "text",
-      placeholder: "Usuário",
+      placeholder: data.user?.username,
       onChange: (evt) => setUsername(evt.target.value),
     },
     {
       name: "label",
-      error: "",
       type: "text",
-      placeholder: "Marca",
+      placeholder: data.label,
       onChange: (evt) => setLabel(evt.target.value),
     },
   ];
@@ -92,7 +84,7 @@ const UpdateKitchenForm = () => {
     >
       {fields &&
         fields.map((item, index) => (
-          <InputNotRegister
+          <Input
             key={index}
             onChange={item.onChange}
             placeholder={item.placeholder}

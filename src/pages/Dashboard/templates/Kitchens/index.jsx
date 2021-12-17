@@ -1,11 +1,12 @@
 import Styled from "./styles";
 import permissions from "../../../../configs/permissions";
-import { FaEdit, FaConciergeBell } from "react-icons/fa";
+import { FaEdit, FaConciergeBell, FaTrashAlt } from "react-icons/fa";
 import MenuCard from "../../../../components/MenuCard";
 import { useAuth } from "../../../../providers/auth";
 import { useDashboard } from "../../../../providers/dashboard";
 import CreateKitchenForm from "../Kitchens/forms/createKitchen"
-import UpdateKitchenForm from "../Kitchens/forms/updateKitchen"
+import KitchensTable from "../Kitchens/tables/kitchenstable"
+import BranchesTable from "../Branches/tables/branches"
 
 const Kitchens = () => {
   const { userType } = useAuth();
@@ -26,9 +27,19 @@ const Kitchens = () => {
     setOpenModal(true);
     setModalInfo({
       title: "Atualizar Cozinhas",
-      content: <UpdateKitchenForm/>,
+      content: <KitchensTable/>,
     });
   };
+
+  const deleteOrders = () => {
+    setOpenModal(true);
+    setModalInfo({
+      title: "Limpar Senhas",
+      content: <BranchesTable/>,
+    });
+
+
+  }
 
 
   const kitchenActions = [
@@ -40,6 +51,7 @@ const Kitchens = () => {
       staff: permissions.users.submenus.createUser.staff,
       superuser: permissions.users.submenus.createUser.superuser,
     },
+   
     {
       title: "Atualizar Cozinhas",
       icon: <FaEdit />,
@@ -47,6 +59,14 @@ const Kitchens = () => {
       user: permissions.users.submenus.updateUser.user,
       staff: permissions.users.submenus.updateUser.staff,
       superuser: permissions.users.submenus.updateUser.superuser,
+    },
+    {
+      title: "Limpar Senhas",
+      icon: <FaTrashAlt />,
+      onClick: () => deleteOrders(),
+      user: permissions.users.submenus.ordersDeleteAll.user,
+      staff: permissions.users.submenus.ordersDeleteAll.staff,
+      superuser: permissions.users.submenus.ordersDeleteAll.superuser,
     },
   ];
 

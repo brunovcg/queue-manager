@@ -2,12 +2,23 @@ import styled from "styled-components";
 import mobileBreakpoint from "../../configs/mobileBreakpoint";
 
 const Styled = styled.div`
-width: 80%;
-display: flex;
-flex-direction: column;
-align-items: center;
 
-input, select{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+padding: 0 15px;
+
+label{
+  width: 100%;
+  height: 12px;
+  color: var(--dark-grey);
+  font-weight: bold;
+  font-size: 11px;
+}
+
+input, select, textarea{
         background: var(--white);
         height: fit-content;
         width: 100%;
@@ -15,11 +26,11 @@ input, select{
         border: 0;
         border-bottom: 1px solid var(--gk-green);
         padding: 5px 0 0 5px;
-        color: var(--darl-grey);
+        color: var(--dark-grey);
         font-size: 18px;
 
         @media (max-width: ${`${mobileBreakpoint.width}px`}) {
-          margin-top: 15px;
+          margin-top: 10px;
           font-size: 16px;
           height: 30px;
           width: 100%;

@@ -2,20 +2,31 @@ import Styled from "./styles";
 
 const Input = ({
   type,
+  width = "100%",
+  fieldType = "input",
   placeholder,
   datalist,
+  label,
   error,
-  register,
+  register= ()=>{},
   name,
   ...rest
 }) => {
   return (
-    <Styled>
-      {!datalist && (
+    <Styled style={{width : width}}>
+      <label >{label}</label>
+      {!datalist && fieldType==="textarea" && (
+        <textarea
+          placeholder={placeholder}
+          { ...register(name)}
+          {...rest}
+        />
+      )}
+         {!datalist &&  fieldType==="input"&&(
         <input
           type={type}
           placeholder={placeholder}
-          {...register(name)}
+          { ...register(name)}
           {...rest}
         />
       )}
@@ -26,7 +37,6 @@ const Input = ({
           id={placeholder}
           defaultValue={placeholder}
         >
-          <option disabled>{placeholder}</option>
           {datalist.map((item, index) => (
             <option key={index}>{item}</option>
           ))}

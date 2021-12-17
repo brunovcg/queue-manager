@@ -9,6 +9,7 @@ import Info from "../../pages/Dashboard/templates/Info";
 import Users from "../../pages/Dashboard/templates/Users";
 import Kitchens from "../../pages/Dashboard/templates/Kitchens";
 import Branches from "../../pages/Dashboard/templates/Branches";
+import CallerSelect from "../../pages/Dashboard/templates/CallerSelect"
 import { useHistory } from "react-router-dom";
 
 const Menu = () => {
@@ -34,7 +35,7 @@ const Menu = () => {
       content: "Tem certeza que quer finalizar a sessão?",
       buttons: (
         <Button
-          setBackground="var(--green)"
+          setBackground="var(--real-green)"
           setColor="white"
           onClick={() => logout()}
         >
@@ -59,7 +60,7 @@ const Menu = () => {
       button: {
         title: "Chamador",
         color: "var(--yellow)",
-        onClick: () => history.push("/chamador"),
+        onClick: () => setDashboard(<CallerSelect/>),
       },
       user: permissions.chamador.menu.user,
       staff: permissions.chamador.menu.staff,

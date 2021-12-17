@@ -56,12 +56,10 @@ export const UserProvider = ({ children }) => {
   };
 
   const changePassword = (id, data) => {
-    let username = data["username"];
-    delete data["username"];
     api()
       .patch(`change-password/${id}/`, data, configs)
       .then((_) => {
-        toast.success(`Senha alterada para ${username} !`);
+        toast.success(`Senha alterada!`);
         setOpenModal(false);
       })
       .catch((e) => {

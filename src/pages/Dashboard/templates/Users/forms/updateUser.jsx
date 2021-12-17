@@ -13,9 +13,27 @@ const UpdateUserForm = ({ data, userId }) => {
   });
 
   const fields = [
-    { name: "username", type: "text", placeholder: data.username },
-    { name: "email", type: "text", placeholder: data.email },
-    { name: "legal_id", type: "text", placeholder: data.legal_id },
+    {
+      name: "username",
+      type: "text",
+      placeholder: data.username,
+      width: "50%",
+      widthMobile: "100%",
+    },
+    {
+      name: "email",
+      type: "text",
+      placeholder: data.email,
+      width: "50%",
+      widthMobile: "100%",
+    },
+    {
+      name: "legal_id",
+      type: "text",
+      placeholder: data.legal_id,
+      width: "50%",
+      widthMobile: "100%",
+    },
     {
       name: "userType",
       type: "text",
@@ -25,6 +43,8 @@ const UpdateUserForm = ({ data, userId }) => {
         ? "Staff"
         : "User",
       datalist: ["User", "Staff", "Superuser"],
+      width: "50%",
+      widthMobile: "100%",
     },
   ];
 

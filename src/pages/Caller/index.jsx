@@ -6,22 +6,25 @@ import { FaArrowAltCircleLeft, FaUndoAlt } from "react-icons/fa";
 import { useWindowSize } from "../../providers/windowSize";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
-import { useEffect } from "react";
-// import { api } from "../../services/api";
-// import { toast } from "react-toastify";
-import {useHistory} from 'react-router-dom'
+import { useLayoutEffect } from "react";
+import { useHistory } from "react-router-dom";
 import mobileBreakpoint from "../../configs/mobileBreakpoint";
+import { useParams } from "react-router-dom";
+import { useOrder } from "../../providers/orders";
+import { useKitchen } from "../../providers/kitchens";
+import {enviromentMedia} from "../../configs/enviroment.js"
 
-export const Chamador = () => {
-  const history = useHistory()
+export const Caller = () => {
+  const { getOrders, postOrder, deleteOrder, inputInfo, setInputInfo, orders } =
+    useOrder();
+
+  const { selectedKitchen, getOneKitchen } = useKitchen();
+  const history = useHistory();
+  const { kitchen_id } = useParams();
   const { width } = useWindowSize();
-  const { logout, token, userId } = useAuth();
-  const user = userId
+  const { token } = useAuth();
 
   const [inputMobile, setInputMobile] = useState(true);
-
-  const [inputInfo, setInputInfo] = useState("");
-  const [clientCalls, setClientCalls] = useState([]);
 
   const addNumber = (data) => {
     if (inputInfo.length < 5) {
@@ -60,35 +63,11 @@ export const Chamador = () => {
     { title: <FaUndoAlt />, click: emptyInput, color: "var(--light-red)" },
   ];
 
-  const getCalls = () => {
-    // api.get(`/info/${user}`).then((res) => {
-    //   setClientCalls(res.data.calls);
-    // });
-  };
-
-  const patchCall = (data) => {
-    // if (inputInfo !== "") {
-    //   api
-    //     .patch(`/info/${user}`, { calls: [...clientCalls, data] })
-    //     .then((_) => {
-    //       width < "500" && toast.info(`Senha ${inputInfo} adicionada`);
-    //       setInputInfo("");
-    //       getCalls();
-    //     });
-    // } else {toast.error("Precisa digitar a senha")}
-  };
-
-  const deleteCall = (callId) => {
-    const newCalls = clientCalls.filter((item) => item !== callId);
-
-    // api.patch(`/info/${user}`, { calls: newCalls }).then((_) => {
-    //   getCalls();
-    // });
-  };
-
-  useEffect(() => {
-    getCalls();
-  }, [token]);
+  useLayoutEffect(() => {
+    getOrders(kitchen_id);
+    getOneKitchen(kitchen_id)
+    /*eslint-disable-next-line */
+  }, []);
 
   if (token === "") {
     return <Redirect to="/" />;
@@ -119,7 +98,10 @@ export const Chamador = () => {
             : "hidden"
         }
       >
-        <p>Cozinha {user}</p>
+        <div style={{display: "flex" }}>
+          <p style={{ padding:  "0 40px"}}>{selectedKitchen && selectedKitchen.label}</p>
+          <img src={enviromentMedia+selectedKitchen.image} style={{width: "40px", border: "1px solid white"}} alt="logo"/>
+        </div>
         <h2>Gestor de Senhas</h2>
         <div className="inputBox">
           <input
@@ -159,7 +141,7 @@ export const Chamador = () => {
             <div className="call">
               <Button
                 setBackground="var(--green)"
-                onClick={() => patchCall(inputInfo)}
+                onClick={() => postOrder(kitchen_id)}
               >
                 Chamar
               </Button>
@@ -177,9 +159,15 @@ export const Chamador = () => {
         }
       >
         <div className="clientCallsBox">
-          {clientCalls &&
-            clientCalls.map((item, index) => (
-              <CallCard num={item} key={index} deleteCall={deleteCall} />
+          {orders &&
+            orders.map((item, index) => (
+              <CallCard
+                num={item.number}
+                orderId={item.id}
+                key={index}
+                kitchenId={kitchen_id}
+                deleteOrder={deleteOrder}
+              />
             ))}
         </div>
       </section>

@@ -45,15 +45,15 @@ const Table = (props) => {
                       key={index + row.id + hd.title}
                       style={dataStyle}
                     >
-                      {hd.cell(row)}
+                     <div style={{width:"100%", display: "flex", justifyContent: hd.alignment || "center"}}> {hd.cell(row)}</div>
                     </td>
                   ) : (
                     <td
                       className={`text-${hd.alignment || "center"}`}
                       key={index + row.id + hd.title}
-                      style={dataStyle}
+                      style={{...dataStyle, textAlign: "center"}}
                     >
-                      {row[hd.access]}
+                     <div style={{width:"100%",display: "flex", justifyContent: hd.alignment || "center"}}> {row[hd.access]}</div>
                     </td>
                   )
                 )}

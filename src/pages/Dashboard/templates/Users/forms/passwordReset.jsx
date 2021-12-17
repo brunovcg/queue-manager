@@ -15,14 +15,14 @@ const ResetPasswordForm = () => {
   });
 
   const fields = [
-    { name: "password", type: "text", placeholder: "Digite a nova senha" },
+    { name: "password", type: "text", placeholder: "Digite a nova senha", width:"50%", widthMobile:"100%"  },
     {
       name: "id",
       placeholder: "Selecione o Usuário",
       type: "text",
       onChange: (evt) => {
         setUserId(Number(evt.target.value));
-      },
+      }, width:"50%", widthMobile:"100%" 
     },
   ];
 

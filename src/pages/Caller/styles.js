@@ -37,14 +37,16 @@ export const Styled = styled.main`
     p {
       color: var(--black);
       font-family: "Otomanopee One", sans-serif;
+      margin: 0;
     }
 
     h2 {
-      height: 12%;
+      height: 8%;
       display: flex;
       align-items: center;
       color: var(--dark-grey);
-      font-size: 25px;
+      font-size: 20px;
+      margin:0;
     }
 
     .inputBox {

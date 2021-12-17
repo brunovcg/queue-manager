@@ -11,6 +11,11 @@ const permissions = {
         superuser: true,
         user: true,
       },
+      ordersDeleteAll: {
+        staff: true,
+        superuser: true,
+        user: false,
+      },
       resetPassword: {
         staff: false,
         superuser: true,

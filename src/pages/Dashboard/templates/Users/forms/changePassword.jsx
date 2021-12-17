@@ -4,7 +4,7 @@ import { useUser } from "../../../../../providers/users";
 import { useAuth } from "../../../../../providers/auth";
 
 const ChangePasswordForm = () => {
-  const { allUsers, changePassword } = useUser();
+  const { changePassword } = useUser();
   const { userId } = useAuth();
 
   const schema = yup.object().shape({
@@ -17,11 +17,15 @@ const ChangePasswordForm = () => {
       name: "old_password",
       type: "password",
       placeholder: "Digite a senha antiga",
+      width: "50%",
+      widthMobile: "100%",
     },
     {
       name: "new_password",
       type: "password",
       placeholder: "Digite a nova senha",
+      width: "50%",
+      widthMobile: "100%",
     },
   ];
 
@@ -29,8 +33,8 @@ const ChangePasswordForm = () => {
     const data = {
       old_password,
       new_password,
-      username: allUsers.filter((item) => item.id === userId)[0]["username"],
     };
+
 
     changePassword(userId, data);
   };

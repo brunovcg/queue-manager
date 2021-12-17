@@ -1,9 +1,10 @@
 import { WindowSizeProvider } from "./windowSize";
-import { ClientProvider } from "./clients";
 import { AuthProvider } from "./auth";
 import { DashboardProvider } from "./dashboard";
 import { UserProvider } from "./users";
-import {KitchenProvider} from "./kitchens"
+import { KitchenProvider } from "./kitchens";
+import { InfoProvider } from "./infos";
+import { OrderProvider } from "./orders";
 
 const providers = ({ children }) => {
   return (
@@ -12,7 +13,9 @@ const providers = ({ children }) => {
         <DashboardProvider>
           <UserProvider>
             <KitchenProvider>
-            <ClientProvider>{children}</ClientProvider>
+              <InfoProvider>
+                <OrderProvider>{children}</OrderProvider>
+              </InfoProvider>
             </KitchenProvider>
           </UserProvider>
         </DashboardProvider>

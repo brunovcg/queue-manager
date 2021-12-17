@@ -1,7 +1,9 @@
 import { useKitchen } from "../../../../../providers/kitchens";
-import InputNotRegister from "../../../../../components/Input/notRegister";
+import Input from "../../../../../components/Input/";
 import Button from "../../../../../components/Button";
 import { useState } from "react";
+import { useWindowSize } from "../../../../../providers/windowSize";
+import mobileBreakpoint from "../../../../../configs/mobileBreakpoint";
 
 const CreateKitchenForm = () => {
   const [branch, setBranch] = useState("");
@@ -11,6 +13,7 @@ const CreateKitchenForm = () => {
   const [label, setLabel] = useState();
   const { createKitchen } = useKitchen();
   const [errors, setErrors] = useState({});
+  const { width } = useWindowSize();
 
   const handleSubmit = () => {
     if (code === "" && branch === "") {
@@ -49,6 +52,8 @@ const CreateKitchenForm = () => {
       type: "text",
       placeholder: "Código",
       onChange: (evt) => setCode(evt.target.value),
+      width: "50%",
+      widthMobile: "100%",
     },
     {
       name: "branch",
@@ -56,12 +61,16 @@ const CreateKitchenForm = () => {
       type: "text",
       placeholder: "Filial",
       onChange: (evt) => setBranch(Number(evt.target.value)),
+      width: "50%",
+      widthMobile: "100%",
     },
     {
       name: "imagem",
       error: "",
       type: "file",
       onChange: (evt) => setImage(evt.target.files[0]),
+      width: "50%",
+      widthMobile: "100%",
     },
     {
       name: "username",
@@ -69,6 +78,8 @@ const CreateKitchenForm = () => {
       type: "text",
       placeholder: "Usuário",
       onChange: (evt) => setUsername(evt.target.value),
+      width: "50%",
+      widthMobile: "100%",
     },
     {
       name: "label",
@@ -76,6 +87,8 @@ const CreateKitchenForm = () => {
       type: "text",
       placeholder: "Marca",
       onChange: (evt) => setLabel(evt.target.value),
+      width: "50%",
+      widthMobile: "100%",
     },
   ];
   return (
@@ -83,29 +96,36 @@ const CreateKitchenForm = () => {
       className="create-kitchen-input-box"
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
+        flexWrap: "wrap",
         alignItems: "center",
+        width: "100%",
       }}
     >
       {fields &&
         fields.map((item, index) => (
-          <InputNotRegister
+          <Input
             key={index}
             onChange={item.onChange}
             placeholder={item.placeholder}
             type={item.type}
             error={item.error}
+            width={
+              width <= mobileBreakpoint.width ? item.widthMobile : item.width
+            }
           />
         ))}
-      <Button
-        onClick={handleSubmit}
-        setColor="white"
-        setBackground="var(--gk-green)"
-        setWidth="100px"
-        setHeight="45px"
-      >
-        Enviar
-      </Button>
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <Button
+          onClick={handleSubmit}
+          setColor="white"
+          setBackground="var(--gk-green)"
+          setWidth="100px"
+          setHeight="45px"
+        >
+          Enviar
+        </Button>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { Container } from "./styles";
 import Button from "../Button";
 
-export const CallCard = ({ num, deleteCall }) => {
+export const CallCard = ({ num, orderId, deleteOrder, kitchenId}) => {
   return (
     <Container>
       <h3>{num}</h3>
@@ -10,7 +10,7 @@ export const CallCard = ({ num, deleteCall }) => {
           setBackground="var(--light-red)"
           setWidth="90px"
           setHeight="45px"
-          setClick={() => deleteCall(num)}
+          onClick={() => deleteOrder(kitchenId,orderId, num)}
         >
           Entregar
         </Button>

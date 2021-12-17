@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const getLogin = (data) => {
-    api()
+     api()
       .post("login/", data)
       .then((response) => {
         for (let i = 0; i < Object.keys(response.data).length; i++) {
@@ -57,6 +57,11 @@ export const AuthProvider = ({ children }) => {
         setUserId(response.data.user_id);
         setToken(response.data.token);
         setUsername(response.data.username);
+        setConfigs({
+          headers: {
+            Authorization: "Token " + response.data.token,
+          },
+        });
         toast.success("Bem vindo!");
         return true;
       })
