@@ -40,20 +40,15 @@ const permissions = {
       user: false,
     },
     submenus: {
-      createUnit: {
+      createBranch: {
         staff: false,
-        superuser: false,
+        superuser: true,
         user: true,
       },
-      deleteUnit: {
+      updateBranch: {
         staff: false,
-        superuser: false,
-        user: true,
-      },
-      updateUnit: {
-        staff: false,
-        superuser: false,
-        user: true,
+        superuser: true,
+        user: false,
       },
     },
   },

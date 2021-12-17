@@ -78,7 +78,7 @@ const Menu = () => {
     },
     {
       button: {
-        title: "Users",
+        title: "Usuário",
         color: "var(--real-green)",
         onClick: () => setDashboard(<Users />),
       },
@@ -88,7 +88,7 @@ const Menu = () => {
     },
     {
       button: {
-        title: "Kitchens",
+        title: "Cozinhas",
         color: "var(--yellow)",
         onClick: () => setDashboard(<Kitchens />),
       },
@@ -98,7 +98,7 @@ const Menu = () => {
     },
     {
       button: {
-        title: "Branches",
+        title: "Unidade",
         color: "var(--orange)",
         onClick: () => setDashboard(<Branches />),
       },
