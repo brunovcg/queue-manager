@@ -1,14 +1,18 @@
 import Table from "../../../../../components/Table";
 import { useUser } from "../../../../../providers/users";
 import { useDashboard } from "../../../../../providers/dashboard";
-import { FaTrashAlt,FaUserEdit, } from "react-icons/fa";
+import { useAuth } from "../../../../../providers/auth";
+import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
 import Button from "../../../../../components/Button";
-import UpdateUserForm from "../forms/updateUser"
+import UpdateUserForm from "../forms/updateUser";
+import { useState } from "react";
+import Input from "../../../../../components/Input";
 
 const UsersTable = () => {
   const { allUsers, deleteUser } = useUser();
-
+  const { userId } = useAuth();
   const { setModalInfo, setOpenModal } = useDashboard();
+  const [filter, setFilter] = useState("");
 
   const userDelete = (username, id) => {
     setModalInfo({
@@ -35,11 +39,12 @@ const UsersTable = () => {
     setOpenModal(true);
   };
 
-  const userUpdate = (row, id)=>{
+  const userUpdate = (row, id) => {
     setModalInfo({
       title: "Atualizar usuário",
       content: <UpdateUserForm data={row} userId={id} />,
-  })}
+    });
+  };
 
   const header = [
     {
@@ -48,7 +53,15 @@ const UsersTable = () => {
     },
     {
       title: "Usuário",
-      access: "username",
+      access: false,
+      cell: (row) => (
+        <div>
+          {row.username}{" "}
+          <span style={{ color: "var(--blue)", fontWeight: "bold" }}>
+            {userId === row.id && "(Você)"}
+          </span>
+        </div>
+      ),
       alignment: "start",
     },
     {
@@ -81,6 +94,7 @@ const UsersTable = () => {
           setColor="white"
           setHeight="30px"
           setBackground="var(--red)"
+          disabled={userId === row.id}
           onClick={() => userDelete(row.username, row.id)}
         >
           <FaTrashAlt />
@@ -107,7 +121,21 @@ const UsersTable = () => {
 
   return (
     <div>
-      <Table header={header} data={allUsers} />
+      <Input
+        label="Filtrar"
+        width="250px"
+        onChange={(evt) => setFilter(evt.target.value)}
+        placeholder="..."
+      />
+      <Table
+        header={header}
+        data={allUsers.filter(
+          (item) =>
+            item.username?.toLowerCase().includes(filter.toLowerCase()) ||
+            item.id?.toString().includes(filter.toString()) ||
+            item.email?.toLowerCase().includes(filter.toLocaleLowerCase())
+        )}
+      />
     </div>
   );
 };

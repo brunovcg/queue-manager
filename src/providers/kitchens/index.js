@@ -27,7 +27,8 @@ export const KitchenProvider = ({ children }) => {
       .post("kitchens/", data, configs)
       .then((_) => {
         toast.success("Cozinha Criada!");
-        getAllKitchens();
+        getAllKitchens()
+        setOpenModal(false);
       })
       .catch((e) => {
         toast.error(
@@ -59,7 +60,7 @@ export const KitchenProvider = ({ children }) => {
       .patch(`kitchens/${id}/`, data, configs)
       .then((_) => {
         toast.success("Cozinha atualizada!");
-        getAllKitchens();
+        getAllKitchens()
         setOpenModal(false);
       })
       .catch((e) => {

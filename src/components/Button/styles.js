@@ -2,7 +2,12 @@ import styled from "styled-components";
 const Styled = styled.button`
   width: ${(props) => (props.setWidth ? props.setWidth : "60px")};
   height: ${(props) => (props.setHeight ? props.setHeight : "30px")};
-  background-color: ${(props) => (props.setBackground ? props.setBackground : "grey")};
+  background-color: ${(props) =>
+    props.disabled === true
+      ? "var(--light-grey)"
+      : props.setBackground
+      ? props.setBackground
+      : "grey"};
   color: ${(props) => (props.setColor ? props.setColor : "black")};
   display: flex;
   align-items: center;
@@ -16,7 +21,8 @@ const Styled = styled.button`
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   transition: 0.2s;
   :hover {
-    opacity: 50%;
+    opacity: ${(props) =>
+      props.disabled === true ? "var(--light-grey)" : "50%"};
   }
 `;
 export default Styled;

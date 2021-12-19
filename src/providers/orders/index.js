@@ -22,15 +22,6 @@ export const OrderProvider = ({ children }) => {
       });
   };
 
-  const deleteAllOrders = (branchId) => {
-    api()
-      .delete(`orders/?branchId=${branchId}`, configs)
-      .then((_) => {
-        getOrders();
-        toast.success(`Todas as senhas foram apagadas`);
-      });
-  };
-
   const postOrder = (kitchenId) => {
     if (inputInfo !== "") {
       const data = { number: inputInfo };
@@ -69,7 +60,6 @@ export const OrderProvider = ({ children }) => {
         inputInfo,
         setInputInfo,
         orders,
-        deleteAllOrders,
       }}
     >
       {children}

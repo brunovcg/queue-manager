@@ -5,6 +5,7 @@ import { UserProvider } from "./users";
 import { KitchenProvider } from "./kitchens";
 import { InfoProvider } from "./infos";
 import { OrderProvider } from "./orders";
+import { BranchProvider } from "./branches";
 
 const providers = ({ children }) => {
   return (
@@ -12,11 +13,13 @@ const providers = ({ children }) => {
       <AuthProvider>
         <DashboardProvider>
           <UserProvider>
-            <KitchenProvider>
-              <InfoProvider>
-                <OrderProvider>{children}</OrderProvider>
-              </InfoProvider>
-            </KitchenProvider>
+            <BranchProvider>
+              <KitchenProvider>
+                <InfoProvider>
+                  <OrderProvider>{children}</OrderProvider>
+                </InfoProvider>
+              </KitchenProvider>
+            </BranchProvider>
           </UserProvider>
         </DashboardProvider>
       </AuthProvider>

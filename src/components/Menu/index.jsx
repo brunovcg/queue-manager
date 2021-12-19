@@ -10,7 +10,8 @@ import Users from "../../pages/Dashboard/templates/Users";
 import Kitchens from "../../pages/Dashboard/templates/Kitchens";
 import Branches from "../../pages/Dashboard/templates/Branches";
 import CallerSelect from "../../pages/Dashboard/templates/CallerSelect"
-import { useHistory } from "react-router-dom";
+import DisplaySelect from "../../pages/Dashboard/templates/DisplaySelect"
+
 
 const Menu = () => {
   const [modal, setModal] = useState(false);
@@ -22,7 +23,6 @@ const Menu = () => {
   });
   const { userType, logout } = useAuth();
   const { setDashboard } = useDashboard();
-  const history = useHistory();
 
   const openModal = () => {
     setModal(true);
@@ -48,7 +48,7 @@ const Menu = () => {
   const menu = [
     {
       button: {
-        title: "Info",
+        title: "Avisos",
         color: "var(--blue)",
         onClick: () => setDashboard(<Info />),
       },
@@ -70,7 +70,7 @@ const Menu = () => {
       button: {
         title: "Display",
         color: "var(--purple)",
-        onClick: () => history.push("/display"),
+        onClick: () => setDashboard(<DisplaySelect/>),
       },
       user: permissions.display.menu.user,
       staff: permissions.display.menu.staff,
@@ -78,7 +78,7 @@ const Menu = () => {
     },
     {
       button: {
-        title: "Usuário",
+        title: "Usuários",
         color: "var(--real-green)",
         onClick: () => setDashboard(<Users />),
       },
@@ -98,7 +98,7 @@ const Menu = () => {
     },
     {
       button: {
-        title: "Unidade",
+        title: "Unidades",
         color: "var(--orange)",
         onClick: () => setDashboard(<Branches />),
       },

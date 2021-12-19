@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
   const { configs, userType } = useAuth();
   const { setOpenModal, dashboard } = useDashboard();
 
-  const deleteUser = (id, header) => {
+  const deleteUser = (id) => {
     api()
       .delete(`users/${id}/`, configs)
       .then((_) => {

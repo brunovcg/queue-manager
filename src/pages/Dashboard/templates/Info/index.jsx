@@ -25,18 +25,18 @@ const Info = () => {
       <Button setColor="white" setBackground="var(--blue)"  onClick={sendInfo}>+ Info</Button>
 
       <div className="message-container">
-        <h4 className="title-message">Mensagens</h4>
+        <h4 className="title-message">Avisos</h4>
         <div className="message-list"> 
         {infos &&
-          infos.map((item, index) => (
+          infos.sort((a,b) => b.id - a.id ).map((item, index) => (
             <MessageCard
-              key={index + item.id + item.message}
+              key={index + item.message}
               className="message-card"
               priority={item.priority}
             >
               <div className="title-author-date-priority">
                 <div className="title">
-                  {item.id} - {item.title}
+                <span className="spanTitle">Tema</span> - {item.title}
                 </div>
                 <div className="author"><span className="spanTitle">Autor:</span> {item.user?.username}</div>
                 <div className="date"><span className="spanTitle">Data:</span> {dateFunctions.stringToDateFormated(item.created_at)}</div>

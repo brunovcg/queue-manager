@@ -17,7 +17,7 @@ const AppRoutes = () => {
       <Route path="/caller/:kitchen_id">
         <Caller/>
       </Route>
-      <Route path="/display">
+      <Route path="/display/:branch_id">
         <Display />
       </Route>
       <Route>

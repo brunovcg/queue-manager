@@ -4,7 +4,7 @@ const Styled = styled.button`
   width: 160px;
   height: 160px;
   padding: 10px;
-  margin: 10px;
+  margin: 10px 30px;
   background-color: ${(prop) => prop.background};
   border-radius: 10px;
   border: none;

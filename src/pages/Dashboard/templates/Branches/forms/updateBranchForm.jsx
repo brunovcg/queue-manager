@@ -1,46 +1,46 @@
+import { useBranch } from "../../../../../providers/branches";
+import { estadosUF } from "../../../../../utils/mocks";
 import * as yup from "yup";
 import HookForm from "../../../../../components/HookForm";
-import { useUser } from "../../../../../providers/users";
-import {estadosUF} from "../../../../../utils/mocks"
 
-const CreateBranchForm = () => {
-  const { createUser } = useUser();
+const UpdateBranchForm = ({ data, branchId }) => {
+  const { updateBranch } = useBranch();
 
   const schema = yup.object().shape({
-    name: yup.string().required("Nome Necessário"),
-    address: yup.string().required("Endereço é necessário"),
-    number: yup.string().required("CPF/CNPJ é necessário"),
-    city: yup.string().required("Cidade é necessária"),
-    UF: yup.string().required("UF Necessário"),
-    cep: yup.string().required("CEP Necessário"),
+    name: yup.string(),
+    address: yup.string(),
+    number: yup.string(),
+    city: yup.string(),
+    UF: yup.string(),
+    cep: yup.string(),
   });
 
   const fields = [
     {
       name: "name",
       type: "text",
-      placeholder: "Digite o Nome",
+      placeholder: data.name,
       width: "50%",
       widthMobile: "100%",
     },
     {
       name: "address",
       type: "text",
-      placeholder: "Digite o endereço",
+      placeholder: data.address,
       width: "50%",
       widthMobile: "100%",
     },
     {
       name: "number",
       type: "text",
-      placeholder: "Digite o número",
+      placeholder: data.number,
       width: "25%",
       widthMobile: "100%",
     },
     {
       name: "city",
-      type: "password",
-      placeholder: "digite a cidade",
+      type: "text",
+      placeholder: data.city,
       width: "60%",
       widthMobile: "100%",
     },
@@ -48,16 +48,16 @@ const CreateBranchForm = () => {
     {
       name: "UF",
       type: "text",
-      placeholder: "Digite o Estado (UF)",
+      placeholder: data.UF,
       label: "UF",
-      datalist : estadosUF,
+      datalist: estadosUF,
       width: "15%",
       widthMobile: "30%",
     },
     {
       name: "cep",
       type: "text",
-      placeholder: "Digite o cep",
+      placeholder: data.cep,
       width: "30%",
       widthMobile: "70%",
     },
@@ -73,11 +73,16 @@ const CreateBranchForm = () => {
       cep,
     };
 
-    createUser(data);
+    for (let key in data) {
+      if (!data[key]) {
+        delete data[key];
+      }
+    }
+
+    updateBranch(branchId, data);
   };
+
   return <HookForm schema={schema} fields={fields} action={action} />;
 };
 
-export default CreateBranchForm;
-
-//  FALTA ACABAR O BRANCH E O APAGAR TODOS AS ORDERS
+export default UpdateBranchForm;

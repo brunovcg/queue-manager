@@ -35,7 +35,7 @@ const permissions = {
   },
   branches: {
     menu: {
-      staff: false,
+      staff: true,
       superuser: true,
       user: false,
     },
@@ -46,7 +46,7 @@ const permissions = {
         user: true,
       },
       updateBranch: {
-        staff: false,
+        staff: true,
         superuser: true,
         user: false,
       },

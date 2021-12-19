@@ -5,7 +5,7 @@ import { useWindowSize } from "../../providers/windowSize";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../providers/auth";
 import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import mobileBreakpoint from "../../configs/mobileBreakpoint";
 import { useKitchen } from "../../providers/kitchens";
 
@@ -16,13 +16,14 @@ export const Display = () => {
   const [timer, setTimer] = useState(30);
 
   const { kitchens, getAllKitchens } = useKitchen();
+  const { branch_id } = useParams();
 
   const handleTimer = () => {
     if (timer > 0) {
       setTimer(timer - 1);
     }
-    if (timer===0){
-      setTimer(30)
+    if (timer === 0) {
+      setTimer(30);
     }
   };
 
@@ -54,12 +55,15 @@ export const Display = () => {
         <Styled>
           <header>
             <p className="text">
-              Entregador, verifique pelo restaurante se o pedido está
-              pronto. Caso esteja, peça autorização de entrada.
+              Entregador, verifique pelo restaurante se o pedido está pronto.
+              Caso esteja, peça autorização de entrada.
             </p>
             <div className="countDown">
               <p className="update-text">Atualiza em:</p>
-              <div className="timer">{timer}<span style={{color: "white", fontSize: "15px"}}>seg</span></div>
+              <div className="timer">
+                {timer}
+                <span style={{ color: "white", fontSize: "15px" }}>seg</span>
+              </div>
             </div>
 
             <Link to="/dashboard">
@@ -70,16 +74,18 @@ export const Display = () => {
           </header>
 
           <main>
-            {kitchens.map((item) => (
-              <ClientCard
-                key={item.id}
-                kitchen={item.code}
-                client={item.label}
-                logo={item.image}
-                alt={`logo_${item.label}`}
-                calls={item.orders}
-              />
-            ))}
+            {kitchens
+              .filter((kit) => kit.branch.id === Number(branch_id))
+              .map((item) => (
+                <ClientCard
+                  key={item.id}
+                  kitchen={item.code}
+                  client={item.label}
+                  logo={item.image}
+                  alt={`logo_${item.label}`}
+                  calls={item.orders}
+                />
+              ))}
           </main>
         </Styled>
       )}
@@ -109,12 +115,12 @@ export const Display = () => {
               .filter((item) => item.label === selectInfo)
               .map((item) => (
                 <ClientCard
-                key={item.id}
-                kitchen={item.code}
-                client={item.label}
-                logo={item.image}
-                alt={`logo_${item.label}`}
-                calls={item.orders}
+                  key={item.id}
+                  kitchen={item.code}
+                  client={item.label}
+                  logo={item.image}
+                  alt={`logo_${item.label}`}
+                  calls={item.orders}
                 />
               ))}
           </div>

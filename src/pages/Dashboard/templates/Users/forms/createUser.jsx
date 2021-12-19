@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import HookForm from "../../../../../components/HookForm";
 import { useUser } from "../../../../../providers/users";
+import { masks } from "../../../../../utils/functions";
 
 const CreateUserForm = () => {
   const { createUser } = useUser();
@@ -11,7 +12,10 @@ const CreateUserForm = () => {
       .string()
       .email("E-mail Invalido")
       .required("E-mail é necessário"),
-    legal_id: yup.string().required("CPF/CNPJ é necessário"),
+    legal_id: yup
+      .string()
+      .required("CPF/CNPJ é necessário")
+      .max(14, "No máximo 14 caracteres"),
     password: yup.string().required("Senha é necessária"),
     confirmPassword: yup
       .string()
@@ -56,6 +60,7 @@ const CreateUserForm = () => {
       placeholder: "Digite o CPF/CNPJ",
       width: "50%",
       widthMobile: "100%",
+      // mask:"999.999.999-99"
     },
     {
       name: "userType",
@@ -73,7 +78,7 @@ const CreateUserForm = () => {
       username,
       password,
       email,
-      legal_id,
+      legal_id: masks.takeOut(legal_id),
       is_staff: userType === "Staff" || userType === "Superuser" ? true : false,
       is_superuser: userType === "Superuser" ? true : false,
     };

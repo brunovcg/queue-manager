@@ -21,8 +21,14 @@ export const Styled = styled.div`
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-      justify-content: space-around;
+      justify-content: start;
+
+      @media (max-width: ${`${mobileBreakpoint.width}px`}) {
+        justify-content: center;
+      }
+
       .message-card {
+        margin: 10px;
         .title-author-date-priority {
           display: flex;
           flex-wrap: wrap;

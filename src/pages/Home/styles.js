@@ -80,7 +80,7 @@ export const Styled = styled.main`
       color: var(--dark-grey);
       width: 70%;
       font-size: 16px;
-      @media (max-width: 500px) {
+      @media (max-width: ${`${mobileBreakpoint.width}px`}) {
         font-size: 4vw;
       }
     }

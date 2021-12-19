@@ -8,6 +8,7 @@ const Button = ({
   setWidth="90px",
   setFont,
   setBackground,
+  disabled=false,
   ...rest
 }) => {
   return (
@@ -18,6 +19,7 @@ const Button = ({
       setWidth={setWidth}
       setFont={setFont}
       setColor={setColor}
+      disabled={disabled}
       {...rest}
     >
       {children}

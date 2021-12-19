@@ -6,10 +6,10 @@ const DashboardContext = createContext([]);
 export const DashboardProvider = ({ children }) => {
   const [dashboard, setDashboard] = useState(<Info />);
   const [openModal, setOpenModal] = useState(false);
-  const [modalInfo, setModalInfo] = useState({});
+  const [modalInfo, setModalInfo] = useState({title:"", content:""});
 
   const resetModal = () => {
-    setModalInfo({});
+    setModalInfo({title:"", content:""});
   };
 
   return (

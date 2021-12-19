@@ -5,7 +5,13 @@ import Input from "../../components/Input";
 import { useWindowSize } from "../../providers/windowSize";
 import mobileBreakpoint from "../../configs/mobileBreakpoint";
 
-const HookForm = ({ schema, fields, action, buttonTitle = "Submeter" }) => {
+const HookForm = ({
+  schema,
+  fields,
+  action,
+  buttonDisabled,
+  buttonTitle = "Submeter",
+}) => {
   const { width } = useWindowSize();
   const {
     register,
@@ -37,6 +43,7 @@ const HookForm = ({ schema, fields, action, buttonTitle = "Submeter" }) => {
             error={errors[item.name]?.message}
             name={item.name}
             key={index}
+            mask={item.mask}
             fieldType={item.fieldType}
             type={item.type}
             placeholder={item.placeholder}
@@ -54,6 +61,7 @@ const HookForm = ({ schema, fields, action, buttonTitle = "Submeter" }) => {
           setHeight="45px"
           setWidth="100px"
           style={{ marginTop: "10px" }}
+          disabled={buttonDisabled}
         >
           {buttonTitle}
         </Button>

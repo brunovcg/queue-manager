@@ -25,7 +25,7 @@ export const InfoProvider = ({ children }) => {
       .post("informations/", data, configs)
       .then((_) => {
         toast.success("Cozinha Criada!");
-        getAllInfo()
+        setInfos([...infos, data]);
         setOpenModal(false);
       })
       .catch((e) => {
@@ -37,12 +37,12 @@ export const InfoProvider = ({ children }) => {
       });
   };
 
-  const deleteInfo = (id) => {
+  const deleteInfo = (infoId) => {
     api()
-      .delete(`informations/${id}/`, configs)
+      .delete(`informations/${infoId}/`, configs)
       .then((_) => {
         toast.success("Cozinha Deletada!");
-        getAllInfo()
+        setInfos(infos.filter((item) => item.id !== infoId));
       })
       .catch((e) => {
         toast.error("Houve um erro ao deletar, tente novamente");

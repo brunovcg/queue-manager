@@ -8,23 +8,23 @@ const AuthContext = createContext([]);
 export const AuthProvider = ({ children }) => {
   const history = useHistory();
   const [token, setToken] = useState(
-    JSON.parse(localStorage.getItem("@gokitchen:token")) || ""
+    JSON.parse(sessionStorage.getItem("@gokitchen:token")) || ""
   );
 
   const [userId, setUserId] = useState(
-    JSON.parse(localStorage.getItem("@gokitchen:user_id")) || ""
+    JSON.parse(sessionStorage.getItem("@gokitchen:user_id")) || ""
   );
 
   const [userType, setUserType] = useState(
-    JSON.parse(localStorage.getItem("@gokitchen:user_type")) || ""
+    JSON.parse(sessionStorage.getItem("@gokitchen:user_type")) || ""
   );
 
   const [username, setUsername] = useState(
-    JSON.parse(localStorage.getItem("@gokitchen:username")) || ""
+    JSON.parse(sessionStorage.getItem("@gokitchen:username")) || ""
   );
 
   const logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     history.go("/");
   };
 
@@ -43,11 +43,11 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const getLogin = (data) => {
-     api()
+    api()
       .post("login/", data)
       .then((response) => {
         for (let i = 0; i < Object.keys(response.data).length; i++) {
-          localStorage.setItem(
+          sessionStorage.setItem(
             `@gokitchen:${Object.keys(response.data)[i]}`,
             JSON.stringify(response.data[Object.keys(response.data)[i]])
           );
@@ -66,8 +66,7 @@ export const AuthProvider = ({ children }) => {
         return true;
       })
       .catch((res) => {
-
-        if (res.request.status === 0) { 
+        if (res.request.status === 0) {
           return toast.error("Erro de conexão ao servidor.");
         }
         toast.error("E-mail e/ou senha não conferem!");
@@ -76,9 +75,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    setToken(JSON.parse(localStorage.getItem("@gokitchen:token")) || "");
-    setUserType(JSON.parse(localStorage.getItem("@gokitchen:user_type")) || "");
-    setUserId(JSON.parse(localStorage.getItem("@gokitchen:user_id")) || "");
+    setToken(JSON.parse(sessionStorage.getItem("@gokitchen:token")) || "");
+    setUserType(
+      JSON.parse(sessionStorage.getItem("@gokitchen:user_type")) || ""
+    );
+    setUserId(JSON.parse(sessionStorage.getItem("@gokitchen:user_id")) || "");
   }, []);
 
   return (

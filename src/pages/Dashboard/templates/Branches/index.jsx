@@ -7,7 +7,8 @@ import {
 import permissions from "../../../../configs/permissions";
 import { useAuth } from "../../../../providers/auth";
 import { useDashboard } from "../../../../providers/dashboard";
-import CreateBranchForm from "./forms/branchform"
+import CreateBranchForm from "./forms/createBranchForm"
+import BranchesTable from "./tables/branches"
 
 
 const Branches = () => {
@@ -26,10 +27,9 @@ const Branches = () => {
     setOpenModal(true);
     setModalInfo({
       title: "Atualizar Unidade",
-      content: "<UsersTable />",
+      content: <BranchesTable/>,
     });
   };
-
 
 
   const userActions = [

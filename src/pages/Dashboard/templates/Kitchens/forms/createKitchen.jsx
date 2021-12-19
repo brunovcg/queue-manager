@@ -4,6 +4,9 @@ import Button from "../../../../../components/Button";
 import { useState } from "react";
 import { useWindowSize } from "../../../../../providers/windowSize";
 import mobileBreakpoint from "../../../../../configs/mobileBreakpoint";
+import { dataFormFunctions } from "../../../../../utils/functions";
+import { useBranch } from "../../../../../providers/branches";
+import { useUser } from "../../././../../../providers/users";
 
 const CreateKitchenForm = () => {
   const [branch, setBranch] = useState("");
@@ -14,13 +17,30 @@ const CreateKitchenForm = () => {
   const { createKitchen } = useKitchen();
   const [errors, setErrors] = useState({});
   const { width } = useWindowSize();
+  const { branches } = useBranch();
+  const { allUsers } = useUser();
+
+  const handleBranchSelect = () => {
+    return [" ", ...branches.map((item) => item.name)];
+  };
+
+  const handleUserSelect = () => {
+    return [
+      " ",
+      ...allUsers
+        .filter((user) => !user.is_staff)
+        .sort((a, b) => a.id - b.id)
+        .map((item) => item.id),
+    ];
+  };
 
   const handleSubmit = () => {
+    console.log(username);
     if (code === "" && branch === "") {
       setErrors({
         ...errors,
         code: "O campo code é necessário",
-        branch: "O campo branch é necessário",
+        branch: "O campo unidade é necessário",
       });
       return;
     }
@@ -30,19 +50,49 @@ const CreateKitchenForm = () => {
       return;
     }
 
-    if (branch === "" || code !== "") {
-      setErrors({ ...errors, branch: "O campo branch é necessário", code: "" });
+    if (branch === "" && code !== "") {
+      setErrors({
+        ...errors,
+        branch: "O campo unidade é necessário",
+        code: "",
+      });
       return;
     }
 
-    const data = new FormData();
-    data.append("code", code);
-    data.append("branch", branch);
-    data.append("image", image);
-    data.append("username", username);
-    data.append("label", label);
+    if (branch !== "" && code !== "") {
+      setErrors({ ...errors, branch: "", code: "" });
 
-    createKitchen(data);
+      const formdata = new FormData();
+      if (code && code !== "") {
+        formdata.append("code", code);
+      }
+
+      if (branch && branch !== "") {
+        formdata.append(
+          "branch",
+          branches.find((item) => item.name === branch).id
+        );
+      }
+
+      if (image && image !== "") {
+        formdata.append("image", image);
+      }
+
+      if (username && username !== "") {
+        console.log("to aqui");
+        formdata.append("user", Number(username));
+      }
+
+      if (label && label !== "") {
+        formdata.append("label", label);
+      }
+
+      if (dataFormFunctions.valuesToArray(formdata).length < 1) {
+        return;
+      }
+
+      createKitchen(formdata);
+    }
   };
 
   const fields = [
@@ -58,9 +108,10 @@ const CreateKitchenForm = () => {
     {
       name: "branch",
       error: errors.branch,
-      type: "text",
-      placeholder: "Filial",
-      onChange: (evt) => setBranch(Number(evt.target.value)),
+      label: "Escolha a unidade:",
+      datalist: handleBranchSelect(),
+      placeholder: "Unidade",
+      onChange: (evt) => setBranch(evt.target.value),
       width: "50%",
       widthMobile: "100%",
     },
@@ -76,7 +127,8 @@ const CreateKitchenForm = () => {
       name: "username",
       error: "",
       type: "text",
-      placeholder: "Usuário",
+      label: "Escolha um usuário:",
+      datalist: handleUserSelect(),
       onChange: (evt) => setUsername(evt.target.value),
       width: "50%",
       widthMobile: "100%",
@@ -110,6 +162,8 @@ const CreateKitchenForm = () => {
             placeholder={item.placeholder}
             type={item.type}
             error={item.error}
+            datalist={item.datalist}
+            label={item.label}
             width={
               width <= mobileBreakpoint.width ? item.widthMobile : item.width
             }

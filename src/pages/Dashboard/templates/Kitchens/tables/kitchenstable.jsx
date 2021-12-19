@@ -5,11 +5,13 @@ import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
 import Button from "../../../../../components/Button";
 import UpdateKitchenForm from "../forms/updateKitchen";
 import { enviromentMedia } from "../../../../../configs/enviroment";
+import Input from "../../../../../components/Input";
+import { useState } from "react";
 
 const KitchensTable = () => {
   const { kitchens, deleteKitchen } = useKitchen();
-
   const { setModalInfo, setOpenModal } = useDashboard();
+  const [filter, setFilter] = useState("");
 
   const handleKitchenDelete = (username, id) => {
     setModalInfo({
@@ -120,7 +122,22 @@ const KitchensTable = () => {
 
   return (
     <div>
-      <Table header={header} data={kitchens} />
+      <Input
+        label="Filtrar"
+        width="250px"
+        onChange={(evt) => setFilter(evt.target.value)}
+        placeholder="..."
+      />
+      <Table
+        header={header}
+        data={kitchens.filter(
+          (item) =>
+            item.code.toLowerCase().includes(filter.toLowerCase()) ||
+            item.id.toString().includes(filter.toString()) ||
+            item.label?.toLowerCase().includes(filter.toLocaleLowerCase()) ||
+            item.branch?.name?.toLowerCase().includes(filter.toLocaleLowerCase())
+        )}
+      />
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import Styled from "./styles";
+import InputMask from "react-input-mask";
+
 
 const Input = ({
   type,
@@ -8,29 +10,37 @@ const Input = ({
   datalist,
   label,
   error,
-  register= ()=>{},
+  register = () => {},
   name,
+  mask,
   ...rest
 }) => {
   return (
-    <Styled style={{width : width}}>
-      <label >{label}</label>
-      {!datalist && fieldType==="textarea" && (
-        <textarea
+    <Styled style={{ width: width }}>
+      <label>{label}</label>
+      {!mask && !datalist && fieldType === "textarea" && (
+        <textarea placeholder={placeholder} {...register(name)} {...rest} />
+      )}
+      {mask && (
+        <InputMask
+          mask={mask}
           placeholder={placeholder}
-          { ...register(name)}
+          {...register(name)}
           {...rest}
         />
+
       )}
-         {!datalist &&  fieldType==="input"&&(
+
+      {!mask && !datalist && fieldType === "input" && (
         <input
           type={type}
           placeholder={placeholder}
-          { ...register(name)}
+          {...register(name)}
           {...rest}
         />
       )}
-      {datalist && (
+
+      {datalist && !mask && (
         <select
           {...register(name)}
           {...rest}

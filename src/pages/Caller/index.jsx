@@ -93,7 +93,7 @@ export const Caller = () => {
         className={
           width > mobileBreakpoint.width
             ? "inputContainer"
-            : width < "500" && inputMobile
+            : width < mobileBreakpoint.width && inputMobile
             ? "inputContainer"
             : "hidden"
         }
