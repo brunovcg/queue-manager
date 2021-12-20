@@ -85,6 +85,7 @@ export const Home = () => {
             Entrar
           </Button>
         </div>
+        <div className="appInfo">v.2.1 - 20/12/2021</div>
       </form>
     </Styled>
   );

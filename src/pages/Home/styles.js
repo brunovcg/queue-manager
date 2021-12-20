@@ -109,4 +109,10 @@ export const Styled = styled.main`
       }
     }
   }
+
+  .appInfo{
+    color: var(--light-grey);
+    padding: 20px;
+    font-size: 10px;
+  }
 `;
