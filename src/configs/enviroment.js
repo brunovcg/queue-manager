@@ -1,10 +1,10 @@
 const baseURL = {
     prod : "https://gokitchen.herokuapp.com/api/",
-    prodAlt: "http://brunovcg.pythonanywhere.com/api/",
-    dev: "http://localhost:8000/api/",
+    prodAlt: "https://brunovcg.pythonanywhere.com/api/",
+    dev: "https://localhost:8000/api/",
     prodMedia : "https://gokitchen.herokuapp.com/", 
-    prodMediaAlt : "http://brunovcg.pythonanywhere.com/",
-    devMedia : "http://localhost:8000/"
+    prodMediaAlt : "https://brunovcg.pythonanywhere.com/",
+    devMedia : "https://localhost:8000/"
 }
 
 export const enviroment = baseURL.prodAlt
