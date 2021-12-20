@@ -7,6 +7,7 @@ import UpdateKitchenForm from "../forms/updateKitchen";
 import { enviromentMedia } from "../../../../../configs/enviroment";
 import Input from "../../../../../components/Input";
 import { useState } from "react";
+import imgDefault from "../../../../../assets/default.jpg"
 
 const KitchensTable = () => {
   const { kitchens, deleteKitchen } = useKitchen();
@@ -79,7 +80,7 @@ const KitchensTable = () => {
           src={`${enviromentMedia}${row.image}`}
           onError={(evt) => {
             evt.target.onerror = null;
-            evt.target.src = `${enviromentMedia}media/default.jpg`;
+            evt.target.src = {imgDefault};
           }}
           alt="error_img"
         />
