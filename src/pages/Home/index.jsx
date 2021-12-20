@@ -49,7 +49,7 @@ export const Home = () => {
         </figure>
       </div>
       <form className="whiteBox" onSubmit={handleSubmit(onSubmitFunction)}>
-        <h1>Gerenciador de Pedidos</h1>
+        <h1>Go Kitchen Manager</h1>
         <h2>Acesse sua conta</h2>
         <h3>Digite seu usuário e sua senha</h3>
         <p>
