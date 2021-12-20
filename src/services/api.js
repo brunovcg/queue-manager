@@ -1,3 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
+import { enviroment } from "../configs/enviroment.js";
 
-export const api = axios.create({baseURL:'https://queue-manager-fake-api.herokuapp.com/'})
+export const api = () => {
+  
+  return axios.create({ baseURL: enviroment });
+};
+

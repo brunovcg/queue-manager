@@ -1,25 +1,29 @@
-import MyButton from "./styles";
+import Styled from "./styles";
 
 const Button = ({
   children,
   setColor,
   setHeight,
-  setClick,
-  setWidth,
+  onClick,
+  setWidth="90px",
   setFont,
   setBackground,
+  disabled=false,
+  ...rest
 }) => {
   return (
-    <MyButton
+    <Styled
       setBackground={setBackground}
-      onClick={setClick}
+      onClick={onClick}
       setHeight={setHeight}
       setWidth={setWidth}
       setFont={setFont}
       setColor={setColor}
+      disabled={disabled}
+      {...rest}
     >
       {children}
-    </MyButton>
+    </Styled>
   );
 };
 export default Button;

@@ -1,4 +1,4 @@
-import Routes from "./routes/route";
+import AppRoutes from "./routes/route";
 import GlobalStyle from "./styles/globalStyles";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
        <ToastContainer
       position="top-right"
-      autoClose={1500}
+      autoClose={2000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
@@ -19,7 +19,7 @@ function App() {
       />
       <GlobalStyle />
      
-      <Routes />
+      <AppRoutes />
     </div>
   );
 }

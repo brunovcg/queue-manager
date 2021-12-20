@@ -1,24 +1,19 @@
-import { Container } from "./styles";
+import { Styled } from "./styles";
 import gokitchenNeg from "../../assets/gokitchen-neg.png";
 import Button from "../../components/Button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { users } from "../../utils/userList";
-import { useClient } from "../../providers/clients";
-import { useHistory, Redirect } from "react-router-dom";
-import { api } from "../../services/api";
+import { Redirect } from "react-router-dom";
 import { useAuth } from "../../providers/auth";
-import { toast } from "react-toastify";
+import Input from "../../components/Input";
 
 export const Home = () => {
-  const history = useHistory();
-  const { setMasterAuth, setClientAuth, masterAuth, clientAuth } = useAuth();
-  const { setClientCalls } = useClient();
+  const { getLogin, token } = useAuth();
 
   const schema = yup.object().shape({
-    user: yup.string().required("Usuário Necessário"),
-    pass: yup.string().required("Senha é necessária"),
+    username: yup.string().required("Usuário Necessário"),
+    password: yup.string().required("Senha é necessária"),
   });
 
   const {
@@ -30,71 +25,54 @@ export const Home = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitFunction = ({ user, pass }) => {
-    const infos = {
-      user,
-      pass,
+  const onSubmitFunction = ({ username, password }) => {
+    const data = {
+      username,
+      password,
     };
+    let checkLogin = getLogin(data);
 
-    if (infos.user === "Master" && infos.pass === "kitchen2020") {
-      localStorage.setItem("@GK:Master", JSON.stringify("Master"));
-      setMasterAuth(true);
-      return history.push("/display");
-    } else if (infos.user === "Master" && infos.pass !== "kitchen2020") {
-      toast.error("Senha errada");
-    } else {
-      const kitchenId = infos.user.slice(infos.user.length === 4 ? -1 : -2);
-
-      api.get(`/info/${kitchenId}`).then((res) => {
-        if (res.data.pass === infos.pass) {
-          localStorage.setItem("@GK:User", kitchenId);
-          toast.info(`Bem Vindo! ${res.data.client}`);
-          setClientCalls(kitchenId);
-          setClientAuth(true);
-          return history.push("/kitchen");
-        } else {
-          toast.error("Senha errada");
-        }
-      });
+    if (checkLogin) {
+      reset();
     }
-
-    reset();
   };
 
-  if (masterAuth) {
-    return <Redirect to="/display" />;
-  }
-
-  if (clientAuth) {
-    return <Redirect to="/kitchen" />;
+  if (token !== "") {
+    return <Redirect to="/dashboard" />;
   }
 
   return (
-    <Container>
+    <Styled>
       <div className="greenBox">
         <figure className="gk-neg">
           <img src={gokitchenNeg} alt="gk img" />
         </figure>
       </div>
       <form className="whiteBox" onSubmit={handleSubmit(onSubmitFunction)}>
+        <h1>Gerenciador de Pedidos</h1>
         <h2>Acesse sua conta</h2>
-        <h3>Escolha seu usuário e digite sua senha</h3>
-        <div className="inputBox">
-          <select type="text" {...register("user")}>
-            {users.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
+        <h3>Digite seu usuário e sua senha</h3>
+        <p>
+          Em caso de perda de senha, solicitar recuperação <br /> pelo email
+          contato@gokitchen.com.br.
+        </p>
 
-          <div className="error">{errors.user?.message}</div>
-          <input
+        <div className="inputBox">
+          <Input
+            placeholder="Digite seu usuário"
+            type="text"
+            name="username"
+            register={register}
+            error={errors.username?.message}
+          />
+
+          <Input
             type="password"
             placeholder="Digite sua senha"
-            {...register("pass")}
+            name="password"
+            register={register}
+            error={errors.password?.message}
           />
-          <div className="error">{errors.pass?.message}</div>
         </div>
         <div className="buttonBox">
           <Button
@@ -108,6 +86,6 @@ export const Home = () => {
           </Button>
         </div>
       </form>
-    </Container>
+    </Styled>
   );
 };

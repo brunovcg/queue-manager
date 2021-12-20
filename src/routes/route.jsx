@@ -1,19 +1,23 @@
 import { Route, Switch } from "react-router-dom";
 import { Home } from "../pages/Home";
+import {Dashboard} from "../pages/Dashboard"
 import { Display } from "../pages/Display";
-import { Kitchen } from "../pages/Kitchen";
+import {Caller } from "../pages/Caller";
 import { NotFound } from "../pages/Notfound";
 
-const Routes = () => {
+const AppRoutes = () => {
   return (
     <Switch>
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/kitchen">
-        <Kitchen />
+      <Route  path="/dashboard">
+        <Dashboard />
+        </Route>
+      <Route path="/caller/:kitchen_id">
+        <Caller/>
       </Route>
-      <Route path="/display">
+      <Route path="/display/:branch_id">
         <Display />
       </Route>
       <Route>
@@ -23,4 +27,4 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+export default AppRoutes;

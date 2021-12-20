@@ -1,13 +1,14 @@
 import styled from "styled-components";
+import mobileBreakpoint from "../../configs/mobileBreakpoint";
 
-export const Container = styled.main`
+export const Styled = styled.main`
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 500px) {
+  @media (max-width: ${`${mobileBreakpoint.width}px`}) {
     flex-direction: column;
   }
 
@@ -19,7 +20,7 @@ export const Container = styled.main`
     justify-content: center;
     align-items: center;
 
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       height: 30%;
       width: 100%;
     }
@@ -30,6 +31,11 @@ export const Container = styled.main`
       align-items: center;
       img {
         width: 50%;
+
+        @media (max-width: ${`${mobileBreakpoint.width}px`}) {
+  
+      width: 150px;
+    }
       }
     }
   }
@@ -43,26 +49,39 @@ export const Container = styled.main`
     align-items: center;
     box-shadow: 20px 0px 25px 15px rgba(0, 0, 0, 0.45);
 
-    @media (max-width: 500px) {
+    @media (max-width: ${`${mobileBreakpoint.width}px`}) {
       height: 70%;
       width: 100%;
       justify-content: start;
-      padding-top: 40px;
+      padding-top: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin: 0 10px 25px 10px;
+      font-size: 29px;
+      color: var(--gk-green);
+    }
+
+    p{
+      margin: 0 90px;
+      font-size: 12px;
+      text-align: center;
+      color: var(--grey);
     }
 
     h2 {
       color: var(--dark-grey);
+      font-size: 20px;
     }
     h3 {
       display: flex;
       justify-content: center;
       margin-top: 15px;
-      color: var(--grey);
+      color: var(--dark-grey);
       width: 70%;
-      font-size: 1.6vw;
-      @media (max-width: 500px) {
+      font-size: 16px;
+      @media (max-width: ${`${mobileBreakpoint.width}px`}) {
         font-size: 4vw;
-        
       }
     }
 
@@ -71,58 +90,22 @@ export const Container = styled.main`
       width: 70%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: center;
 
-      @media (max-width: 500px) {
+      @media (max-width: ${`${mobileBreakpoint.width}px`}) {
         height: 60%;
         width: 90%;
       }
-
-      input,
-      select {
-        background: var(--white);
-        height: fit-content;
-        width: 100%;
-        margin-top: 50px;
-        border: 0;
-        border-bottom: 1px solid var(--gk-green);
-        padding: 5px 0 0 5px;
-        color: var(--darl-grey);
-        font-size: 2vw;
-
-        @media (max-width: 500px) {
-          margin-top: 40px;
-          font-size: 4.8vw;
-          height: 30px;
-          width: 70%;
-        }
-      }
-    }
-
-    .error {
-      width: 100%;
-      text-align: start;
-      padding: 5px 0 0 10px;
-      height: 20px;
-      color: var(--red);
-      font-weight: bold;
-      font-size: 1.4vw;
-      @media (max-width: 500px) {
-        width: 70%;
-        height: 25px;
-        font-size: 4vw;
-      }
-    }
   }
 
   .buttonBox {
     button {
-
-      @media (max-width: 500px) {
-        width: 35vw;
-        height: 15vw;
-        font-size: 7vw;
+      @media (max-width: ${`${mobileBreakpoint.width}px`}) {
+        width: 90px;
+        height: 40px;
+        font-size: 18px;
+        margin-bottom: 20px;
       }
     }
   }
