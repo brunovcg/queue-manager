@@ -80,7 +80,7 @@ const KitchensTable = () => {
           src={`${enviromentMedia}${row.image}`}
           onError={(evt) => {
             evt.target.onerror = null;
-            evt.target.src = {imgDefault};
+            evt.target.src = imgDefault;
           }}
           alt="error_img"
         />
