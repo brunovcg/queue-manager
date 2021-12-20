@@ -1,10 +1,10 @@
 const baseURL = {
-    prod : "https://queue-manager-fake-api.herokuapp.com/api/",
+    prod : "https://gokitchen.herokuapp.com/api/",
     dev: "http://localhost:8000/api/",
-    prodMedia : "https://queue-manager-fake-api.herokuapp.com/api/", 
+    prodMedia : "https://gokitchen.herokuapp.com/", 
     devMedia : "http://localhost:8000/"
 }
 
-export const enviroment = baseURL.dev
+export const enviroment = baseURL.prod
 
-export const enviromentMedia = baseURL.devMedia
+export const enviromentMedia = baseURL.prod
