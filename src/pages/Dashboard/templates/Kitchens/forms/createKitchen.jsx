@@ -35,7 +35,6 @@ const CreateKitchenForm = () => {
   };
 
   const handleSubmit = () => {
-    console.log(username);
     if (code === "" && branch === "") {
       setErrors({
         ...errors,
@@ -79,7 +78,6 @@ const CreateKitchenForm = () => {
       }
 
       if (username && username !== "") {
-        console.log("to aqui");
         formdata.append("user", Number(username));
       }
 
