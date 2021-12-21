@@ -29,12 +29,13 @@ export const Styled = styled.main`
 
       .update-text {
         width: 40%;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         font-weight: bold;
-        color: var(--light-red);
+        color: var(--light-orange);
         text-align: center;
         display: flex;
         justify-content: center;
+        text-align: justify;
         margin-bottom: 0;
       }
 
@@ -51,7 +52,7 @@ export const Styled = styled.main`
       }
 
       .timer {
-        text-align: end;
+        text-align: start;
         width: 60%;
         color: var(--light-red);
         margin-left: 10px;

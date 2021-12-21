@@ -24,14 +24,14 @@ export const InfoProvider = ({ children }) => {
     api()
       .post("informations/", data, configs)
       .then((_) => {
-        toast.success("Cozinha Criada!");
-        setInfos([...infos, data]);
+        toast.success("Informação Criada!");
+        getAllInfo()
         setOpenModal(false);
       })
       .catch((e) => {
         toast.error(
           e.response.status === 409
-            ? "Cozinha já existe"
+            ? "Informação já existe"
             : "Houve um erro na criação, tente novamente"
         );
       });
@@ -41,7 +41,7 @@ export const InfoProvider = ({ children }) => {
     api()
       .delete(`informations/${infoId}/`, configs)
       .then((_) => {
-        toast.success("Cozinha Deletada!");
+        toast.success("Informação Deletada!");
         setInfos(infos.filter((item) => item.id !== infoId));
       })
       .catch((e) => {
