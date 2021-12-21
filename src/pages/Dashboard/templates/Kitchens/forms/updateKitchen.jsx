@@ -8,6 +8,7 @@ import { useWindowSize } from "../../../../../providers/windowSize";
 import { useState } from "react";
 import { useBranch } from "../../../../../providers/branches";
 import { useUser } from "../../././../../../providers/users";
+import imgDefault from "../../../../../assets/default.jpg";
 
 const UpdateKitchenForm = ({ data, kitchenId }) => {
   const [branch, setBranch] = useState("");
@@ -20,9 +21,14 @@ const UpdateKitchenForm = ({ data, kitchenId }) => {
   const { allUsers } = useUser();
   const { width } = useWindowSize();
   const { setOpenModal } = useDashboard();
+  const [defaultImage, setDefaultImage] = useState(false);
 
   const handleBranchSelect = () => {
     return [" ", ...branches.map((item) => item.name)];
+  };
+
+  const handleDefaultImage = () => {
+    setDefaultImage(!defaultImage);
   };
 
   const handleUserSelect = () => {
@@ -49,8 +55,18 @@ const UpdateKitchenForm = ({ data, kitchenId }) => {
       );
     }
 
-    if (image && image !== "") {
-      formdata.append("image", image);
+    if (defaultImage) {
+      formdata.append(
+        "image",
+        new File([imgDefault], "default.jpg", {
+          type: "image/jpg",
+          lastModified: new Date(),
+        })
+      );
+    } else {
+      if (image && image !== "") {
+        formdata.append("image", image);
+      }
     }
 
     if (username && username !== "") {
@@ -89,6 +105,22 @@ const UpdateKitchenForm = ({ data, kitchenId }) => {
     {
       name: "imagem",
       type: "file",
+      disabled: defaultImage ? true : false,
+      side: (
+        <div style={{ width: "80px", display: "flex" }}>
+          <input type="checkbox" onChange={handleDefaultImage} />
+          <div
+            style={{
+              fontSize: "10px",
+              display: "flex",
+              alignItems: "end",
+              marginLeft: "5px",
+            }}
+          >
+            Imagem Padrão
+          </div>
+        </div>
+      ),
       onChange: (evt) => setImage(evt.target.files[0]),
       width: "50%",
       widthMobile: "100%",
@@ -128,10 +160,12 @@ const UpdateKitchenForm = ({ data, kitchenId }) => {
             key={index}
             onChange={item.onChange}
             placeholder={item.placeholder}
+            disabled={item.disabled}
             type={item.type}
             error={item.error}
             datalist={item.datalist}
             label={item.label}
+            side={item.side}
             width={
               width <= mobileBreakpoint.width ? item.widthMobile : item.width
             }

@@ -21,7 +21,7 @@ label{
 input, select, textarea{
         background: var(--white);
         height: fit-content;
-        width: 100%;
+        flex: 1 auto;
         margin-top: 10px;
         border: 0;
         border-bottom: 1px solid var(--gk-green);
@@ -33,9 +33,9 @@ input, select, textarea{
           margin-top: 10px;
           font-size: 16px;
           height: 30px;
-          width: 100%;
+         
         }
-      }
+      
     }
 
     .error {

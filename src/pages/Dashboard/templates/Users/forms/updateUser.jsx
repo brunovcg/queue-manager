@@ -30,7 +30,7 @@ const UpdateUserForm = ({ data, userId }) => {
     {
       name: "legal_id",
       type: "text",
-      placeholder: data.legal_id,
+      placeholder: data.legal_id ? data.legal_id : "cpf ou cnpj",
       width: "50%",
       widthMobile: "100%",
     },
